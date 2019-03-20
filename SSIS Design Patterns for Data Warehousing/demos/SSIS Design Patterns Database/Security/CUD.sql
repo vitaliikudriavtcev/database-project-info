@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [CUD]
+    AUTHORIZATION [dbo];
+

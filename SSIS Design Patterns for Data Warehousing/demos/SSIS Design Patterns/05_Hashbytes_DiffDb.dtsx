@@ -1,0 +1,1401 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2014 9:57:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{4711F82A-A484-475D-999A-803510EDE2C3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="05_Hashbytes_DiffDb"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{A7F16B6A-D4ED-40E9-B3CB-E679DE7BA03E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CBD5846D-900C-423A-92FA-CD79A61E0DFD}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="NoChangeRowCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CE230620-9558-46B3-B716-FD3E614A3440}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="sqlSelect">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [BigNumber], [FormattedComma], [FormattedZero], [SourceCIUD], HASHBYTES('SHA1', [FormattedComma] + '|' + [FormattedZero] + '|' ) AS hbSource, [LastUpdateDate]  FROM [Source].[05_Hashbytes_DiffDb] ORDER BY [BigNumber]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load 05_Hashbytes_DiffDb"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CD8FAD11-AA8F-4F9B-B638-DAA9C27A47FF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load 05_Hashbytes_DiffDb"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input].Columns[hbSource]"
+                      cachedDataType="bytes"
+                      cachedLength="8000"
+                      cachedName="hbSource"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[hbSource]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input].Columns[05_Hashbytes_DiffDbSK]"
+                      cachedDataType="i8"
+                      cachedName="05_Hashbytes_DiffDbSK"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[05_Hashbytes_DiffDbSK]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input].Columns[hbDestination]"
+                      cachedDataType="bytes"
+                      cachedLength="8000"
+                      cachedName="hbDestination"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[hbDestination]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[New]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="New"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[05_Hashbytes_DiffDbSK]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL([05_Hashbytes_DiffDbSK])</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Update]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Update"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(DT_WSTR,50)#{Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[hbSource]} != (DT_WSTR,50)#{Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[hbDestination]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(DT_WSTR,50)hbSource != (DT_WSTR,50)hbDestination</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[No Change]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="No Change"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - 05 Hashbytes DiffDB Update"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[ETL].[05_Hashbytes_DiffDb_Update]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[SourceCIUD]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - DST - 05 Hashbytes DiffDB Insert"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[ETL].[05_Hashbytes_DiffDb_Insert]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[SourceCIUD]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Destination"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [05_Hashbytes_DiffDbSK], [BigNumber], HASHBYTES('SHA1', [FormattedComma] + '|' + [FormattedZero] + '|' ) AS hbDestination, [LastUpdateDate]  FROM [Target].[05_Hashbytes_DiffDb] ORDER BY [BigNumber]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [05_Hashbytes_DiffDbSK], [BigNumber], HASHBYTES('SHA1', [FormattedComma] + '|' + [FormattedZero] + '|' ) AS hbDestination, [LastUpdateDate]  FROM [Target].[05_Hashbytes_DiffDb] ORDER BY [BigNumber]) [refTable]
+where [refTable].[BigNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="05_Hashbytes_DiffDbSK" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BigNumber" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="hbDestination" dataType="DT_BYTES" length="8000" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastUpdateDate" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BigNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[05_Hashbytes_DiffDbSK]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[05_Hashbytes_DiffDbSK]"
+                      name="05_Hashbytes_DiffDbSK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">05_Hashbytes_DiffDbSK</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[hbDestination]"
+                      dataType="bytes"
+                      errorOrTruncationOperation="Copy Column"
+                      length="8000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output].Columns[hbDestination]"
+                      name="hbDestination"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">hbDestination</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="Row Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::NoChangeRowCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Source 05_Hashbytes_DiffDb"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::sqlSelect</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      name="BigNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      length="4000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      name="FormattedComma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      length="4000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      name="FormattedZero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[hbSource]"
+                      dataType="bytes"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[hbSource]"
+                      length="8000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[hbSource]"
+                      name="hbSource"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[SourceCIUD]"
+                      length="20"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].Columns[SourceCIUD]"
+                      name="SourceCIUD"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[hbSource]"
+                      dataType="bytes"
+                      length="8000"
+                      name="hbSource" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      name="BigNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      name="FormattedComma" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      name="FormattedZero" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[SourceCIUD]"
+                      name="SourceCIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[hbSource]"
+                      dataType="bytes"
+                      length="8000"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[hbSource]"
+                      name="hbSource" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[Lookup Match Output]"
+              endId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[New]"
+              endId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert.Inputs[OLE DB Destination Input]"
+              name="New"
+              startId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[New]" />
+            <path
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[No Change]"
+              endId="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count.Inputs[Row Count Input 1]"
+              name="No Change"
+              startId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[No Change]" />
+            <path
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[Update]"
+              endId="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update.Inputs[OLE DB Destination Input]"
+              name="Update"
+              startId="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split.Outputs[Update]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{63D667B2-ECF8-4D7D-9B51-A43B2422CB9A}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container"
+      DTS:TransactionOption="2">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\SQL - Insert"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0FAAC410-82EB-4A61-A935-B0B7D1C7528E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Insert"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+              SQLTask:SqlStatementSource="INSERT INTO [Target].[05_Hashbytes_DiffDb]&#xA;( [BigNumber]&#xA;, [FormattedComma]&#xA;, [FormattedZero]&#xA;, [SourceCIUD]&#xA;, [TargetCIUD]&#xA;, [IsRowDeleted]&#xA;, [LastUpdateDate]&#xA;)&#xA;SELECT&#xA;  [BigNumber]&#xA;, [FormattedComma]&#xA;, [FormattedZero]&#xA;, [SourceCIUD]&#xA;, 'Insert' AS [TargetCIUD]&#xA;, 0 AS [IsRowDeleted]&#xA;, [LastUpdateDate]&#xA;FROM [ETL].[05_Hashbytes_DiffDb_Insert]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\SQL - Update"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BA895BD9-0EC2-4192-A8D9-22CF92502CE5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Update"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+              SQLTask:SqlStatementSource="UPDATE [Target].[05_Hashbytes_DiffDb]&#xA;SET&#xA;  [FormattedComma] = u.[FormattedComma]&#xA;, [FormattedZero]  = u.[FormattedZero]&#xA;, [SourceCIUD]           = u.[SourceCIUD]&#xA;, [TargetCIUD]    = 'Update'&#xA;, [LastUpdateDate] = u.[LastUpdateDate]&#xA;FROM [Target].[05_Hashbytes_DiffDb] t&#xA;INNER JOIN&#xA;[ETL].[05_Hashbytes_DiffDb_Update] u&#xA;ON t.[BigNumber] = u.[BigNumber]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{33C8243D-0DA9-4552-B872-E71AE3062377}"
+          DTS:From="Package\Sequence Container\SQL - Insert"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Sequence Container\SQL - Update" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate ETL Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{728227B9-9B64-42BA-843E-96BA11232C07}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate ETL Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE ETL.[05_Hashbytes_DiffDb_Update];&#xA;GO&#xA;TRUNCATE TABLE ETL.[05_Hashbytes_DiffDb_Insert];&#xA;GO&#xA;--TRUNCATE TABLE ETL.[05_Hashbytes_DiffDb_Delete];&#xA;--GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D0D5FA7C-BADF-4284-9BB8-4E762FF2AAF5}"
+      DTS:From="Package\SQL - Truncate ETL Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load 05_Hashbytes_DiffDb" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{EE909816-2C77-4C75-8824-3D6701C48E10}"
+      DTS:From="Package\DFT - Load 05_Hashbytes_DiffDb"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Sequence Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="236,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb"
+          TopLeft="5.50000000000001,107.5" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Sequence Container\SQL - Insert"
+          TopLeft="23.5,1.5" />
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Sequence Container\SQL - Update"
+          TopLeft="20.5,103.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint 2]"
+          TopLeft="91.5,43.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="205,201"
+          Size="205,244"
+          Id="Package\Sequence Container"
+          TopLeft="29,203" />
+        <NodeLayout
+          Size="236,42"
+          Id="Package\SQL - Truncate ETL Tables"
+          TopLeft="5.50000000000001,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="123.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="127.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.5"
+              Start="0,0"
+              End="0,46">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load 05_Hashbytes_DiffDb">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert"
+          TopLeft="437,311.5" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination"
+          TopLeft="189,107.5" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update"
+          TopLeft="5.50000000000006,311.5" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb"
+          TopLeft="189,5.49999999999989" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\Row Count"
+          TopLeft="280.5,311.5" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb\Conditional Split"
+          TopLeft="189,209.5" />
+        <EdgeLayout
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[Update]"
+          TopLeft="252.25,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-125.25,60"
+              Start="0,0"
+              End="-125.25,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4306864064603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.4306864064603"
+                    Point2="0,20.4306864064603"
+                    Point3="-4,20.4306864064603" />
+                  <mssgle:LineSegment
+                    End="-121.25,20.4306864064603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-121.25,20.4306864064603"
+                    Point2="-125.25,20.4306864064603"
+                    Point3="-125.25,24.4306864064603" />
+                  <mssgle:LineSegment
+                    End="-125.25,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-78.90529296875,25.4306864064603,32.5605859375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[OLE DB Source Output]"
+          TopLeft="311.5,47.4999999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[No Change]"
+          TopLeft="311.5,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="34,60"
+              Start="0,0"
+              End="34,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="4,30" />
+                  <mssgle:LineSegment
+                    End="30,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30,30"
+                    Point2="34,30"
+                    Point3="34,34" />
+                  <mssgle:LineSegment
+                    End="34,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-7.72134765625,35,49.4426953125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[New]"
+          TopLeft="370.75,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="199.75,60"
+              Start="0,0"
+              End="199.75,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4306864064603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.4306864064603"
+                    Point2="0,20.4306864064603"
+                    Point3="4,20.4306864064603" />
+                  <mssgle:LineSegment
+                    End="195.75,20.4306864064603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="195.75,20.4306864064603"
+                    Point2="199.75,20.4306864064603"
+                    Point3="199.75,24.4306864064603" />
+                  <mssgle:LineSegment
+                    End="199.75,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="89.64095703125,25.4306864064603,20.4680859375,9.3974609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load 05_Hashbytes_DiffDb.Paths[Lookup Match Output]"
+          TopLeft="311.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load 05_Hashbytes_DiffDb\DST - DST - 05 Hashbytes DiffDB Insert">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load 05_Hashbytes_DiffDb\LKP - Destination">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load 05_Hashbytes_DiffDb\DST - 05 Hashbytes DiffDB Update">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load 05_Hashbytes_DiffDb\SRC - Source 05_Hashbytes_DiffDb">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

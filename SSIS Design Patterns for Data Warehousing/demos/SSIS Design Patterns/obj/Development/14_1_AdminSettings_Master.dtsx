@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/2/2014 8:44:41 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{D9D913BC-DDFB-46F4-9091-600D3DFA3A85}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="14_1_AdminSettings_Master"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{5EDB919D-7E89-417B-9B23-53930EA60022}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B134D96F-C42D-470B-94C8-4039193C5688}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MasterPretendConnectionString">
+      <DTS:VariableValue
+        DTS:DataType="8">Empty</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\EPT - 14_2_AdminSettings_Child_1"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{8F39A68E-5DBD-4F27-95F5-3A19F3041082}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EPT - 14_2_AdminSettings_Child_1"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="PackageName">"14_2_AdminSettings_Child_1.dtsx"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>14_2_AdminSettings_Child_1.dtsx</PackageName>
+          <ParameterAssignment>
+            <ParameterName>PretendConnectionStringChild</ParameterName>
+            <BindedVariableOrParameterName>User::MasterPretendConnectionString</BindedVariableOrParameterName>
+          </ParameterAssignment>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\EPT - 14_3_AdminSettings_Child_2"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{A6AAC589-C591-4B17-BD0B-A4360E3A95BF}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EPT - 14_3_AdminSettings_Child_2"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>14_3_AdminSettings_Child_2.dtsx</PackageName>
+          <ParameterAssignment>
+            <ParameterName>PretendConnectionStringChild</ParameterName>
+            <BindedVariableOrParameterName>User::MasterPretendConnectionString</BindedVariableOrParameterName>
+          </ParameterAssignment>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\EPT - 14_4_AdminSettings_Child_3"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{A1662DDA-20F9-43D0-B452-985B63CF8741}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EPT - 14_4_AdminSettings_Child_3"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>14_4_AdminSettings_Child_3.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Get the Pretend Connection String"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7C95D262-ED2B-44CC-A448-145004647621}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Get the Pretend Connection String"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="SELECT [Value]&#xA; FROM [Admin].[Settings]&#xA; WHERE [Package] = '14_1_AdminSettings_Master'&#xA;  AND [Key] = 'PretendConnectionString'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::MasterPretendConnectionString" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{CFF91FF7-150C-442E-A36D-D03F2E5F2C30}"
+      DTS:From="Package\SQL - Get the Pretend Connection String"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\EPT - 14_2_AdminSettings_Child_1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E9141E6F-97B5-4055-A323-7BF8C2254CD8}"
+      DTS:From="Package\EPT - 14_2_AdminSettings_Child_1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\EPT - 14_3_AdminSettings_Child_2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{2ABD72E0-BC8E-46EB-8125-EE823207F3E6}"
+      DTS:From="Package\EPT - 14_3_AdminSettings_Child_2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\EPT - 14_4_AdminSettings_Child_3" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="245,42"
+          Id="Package\EPT - 14_2_AdminSettings_Child_1"
+          TopLeft="194,172.666666666667" />
+        <NodeLayout
+          Size="269,42"
+          Id="Package\EPT - 14_3_AdminSettings_Child_2"
+          TopLeft="157,261.333333333333" />
+        <NodeLayout
+          Size="269,42"
+          Id="Package\EPT - 14_4_AdminSettings_Child_3"
+          TopLeft="157,355" />
+        <NodeLayout
+          Size="269,42"
+          Id="Package\SQL - Get the Pretend Connection String"
+          TopLeft="157,74" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="291.5,116">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="25,56.666666666667"
+              Start="0,0"
+              End="25,49.166666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.3333333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.3333333333335"
+                    Point2="0,28.3333333333335"
+                    Point3="4,28.3333333333335" />
+                  <mssgle:LineSegment
+                    End="21,28.3333333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21,28.3333333333335"
+                    Point2="25,28.3333333333335"
+                    Point3="25,32.3333333333335" />
+                  <mssgle:LineSegment
+                    End="25,49.166666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="316.5,214.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-25,46.666666666666"
+              Start="0,0"
+              End="-25,39.166666666666">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.333333333333"
+                    Point2="0,23.333333333333"
+                    Point3="-4,23.333333333333" />
+                  <mssgle:LineSegment
+                    End="-21,23.333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21,23.333333333333"
+                    Point2="-25,23.333333333333"
+                    Point3="-25,27.333333333333" />
+                  <mssgle:LineSegment
+                    End="-25,39.166666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="291.5,303.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.6666666666667"
+              Start="0,0"
+              End="0,44.1666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.1666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SSISDesignPatternsForCDC"
+  DTS:DTSID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=EPRUSARW1107\MSSQL2017DEV;Initial Catalog=SSISDesignPatterns;Integrated Security=True;Application Name=&quot;SSIS-SSIS Design Patterns-{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}localhost.SSISDesignPatterns&quot;;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

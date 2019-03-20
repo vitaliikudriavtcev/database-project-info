@@ -1,0 +1,507 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2014 9:57:22 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{126BC831-7E59-4DB5-9C23-FB01CDA72EBE}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="04_Set_Based"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{38880D99-5E62-46EF-B849-0A4DB079CC5C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EF5E5298-A12D-4CE2-B4E5-1563FEE7193D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="sqlSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [BigNumber], [FormattedComma], [FormattedZero], [CIUD], [LastUpdateDate] FROM [SSISDesignPatterns].[Source].[04_Set_Based] ORDER BY [BigNumber]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load 04_Set_Based"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3B09421B-B627-4BD7-831C-F5F9554E20C7}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load 04_Set_Based"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load 04_Set_Based\Lookup"
+              componentClassID="{671046B0-AA63-4C9F-90E4-C06E0B710CE3}"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml"></property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 04_Set_Based\Lookup.Connections[OleDbConnection]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load 04_Set_Based\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load 04_Set_Based\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load 04_Set_Based\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load 04_Set_Based\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 04_Set_Based\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based"
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Source 04_Set_Based"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::sqlSource</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      name="BigNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      length="4000"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      name="FormattedComma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      length="4000"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      name="FormattedZero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[CIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[CIUD]"
+                      length="20"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[CIUD]"
+                      name="CIUD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[CIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="CIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      name="BigNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      name="FormattedComma" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      name="FormattedZero" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[CIUD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[CIUD]"
+                      name="CIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load 04_Set_Based.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load 04_Set_Based\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate ETL Tables"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{38E2B7A4-B7B3-4273-92D4-A67B6B56E5A9}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate ETL Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE ETL.04_Set_Based_Update;&#xA;GO&#xA;TRUNCATE TABLE ETL.04_Set_Based_Insert;&#xA;GO&#xA;TRUNCATE TABLE ETL.04_Set_Based_Delete;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{BD00689E-C98D-4707-862E-AFD34BF2080B}"
+      DTS:From="Package\SQL - Truncate ETL Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load 04_Set_Based" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205,42"
+          Id="Package\SQL - Truncate ETL Tables"
+          TopLeft="169.939146821591,46.6982954303827" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\DFT - Load 04_Set_Based"
+          TopLeft="183,155" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="272.439146821591,88.6982954303827">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.0608531784094,66.3017045696173"
+              Start="0,0"
+              End="11.0608531784094,58.8017045696173">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.1508522848087" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.1508522848087"
+                    Point2="0,33.1508522848087"
+                    Point3="4,33.1508522848087" />
+                  <mssgle:LineSegment
+                    End="7.06085317840939,33.1508522848087" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.06085317840939,33.1508522848087"
+                    Point2="11.0608531784094,33.1508522848087"
+                    Point3="11.0608531784094,37.1508522848087" />
+                  <mssgle:LineSegment
+                    End="11.0608531784094,58.8017045696173" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load 04_Set_Based">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based"
+          TopLeft="209,53" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\DFT - Load 04_Set_Based\Lookup"
+          TopLeft="218,156" />
+        <EdgeLayout
+          Id="Package\DFT - Load 04_Set_Based.Paths[OLE DB Source Output]"
+          TopLeft="314,95">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-39.5,61"
+              Start="0,0"
+              End="-39.5,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.5"
+                    Point2="0,30.5"
+                    Point3="-4,30.5" />
+                  <mssgle:LineSegment
+                    End="-35.5,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-35.5,30.5"
+                    Point2="-39.5,30.5"
+                    Point3="-39.5,34.5" />
+                  <mssgle:LineSegment
+                    End="-39.5,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load 04_Set_Based\SRC - Source 04_Set_Based">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SSIS_Design_Patterns_Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{cbdb72c7-9eb3-4feb-b87e-f6af99120b63}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SSIS_Design_Patterns_Database</RootNamespace>
+    <AssemblyName>SSIS_Design_Patterns_Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="DDL\" />
+    <Folder Include="DDL\Stored Procedures\" />
+    <Folder Include="Admin\" />
+    <Folder Include="Admin\Stored Procedures\" />
+    <Folder Include="DML\" />
+    <Folder Include="DML\Stored Procedures\" />
+    <Folder Include="Security\" />
+    <Folder Include="Demo Helper Scripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="DDL\Stored Procedures\CreateETLTable.sql" />
+    <Build Include="DDL\Stored Procedures\CreateCUDProcs.sql" />
+    <Build Include="DDL\Stored Procedures\DropTableIfExists.sql" />
+    <Build Include="DDL\Stored Procedures\DropProcIfExists.sql" />
+    <Build Include="DDL\Stored Procedures\DropAllObjects.sql" />
+    <Build Include="Admin\Stored Procedures\READ_ME.sql" />
+    <Build Include="DDL\Stored Procedures\CreateSourceTable.sql" />
+    <Build Include="DDL\Stored Procedures\CreateTargetTable.sql" />
+    <Build Include="DDL\Stored Procedures\CreateAllObjects.sql" />
+    <Build Include="DML\Stored Procedures\InsertIntoSourceTable.sql" />
+    <Build Include="DML\Stored Procedures\UpdateSourceTable.sql" />
+    <Build Include="Security\Admin.sql" />
+    <Build Include="Security\CUD.sql" />
+    <Build Include="Security\DDL.sql" />
+    <Build Include="Security\DML.sql" />
+    <Build Include="Security\ETL.sql" />
+    <Build Include="Security\Source.sql" />
+    <Build Include="Security\Staging.sql" />
+    <Build Include="Security\Target.sql" />
+    <None Include="Demo Helper Scripts\01_Trunc_and_Load.sql" />
+    <Build Include="DDL\Stored Procedures\CreateCUDProcsType1.sql" />
+    <Build Include="DDL\Stored Procedures\CreateCUDProcsType2.sql" />
+    <None Include="Demo Helper Scripts\06_Hashbytes_SameDb.sql" />
+    <None Include="Demo Helper Scripts\04_Set_Based_Type_2.sql" />
+    <Build Include="DDL\Stored Procedures\CreateFactTable.sql" />
+    <None Include="Demo Helper Scripts\10_Fact.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Demo Helper Scripts\02_SCD_Type_1.sql" />
+    <None Include="Demo Helper Scripts\03_SCD_Type_2.sql" />
+    <None Include="Demo Helper Scripts\04_Set_Based_Type_1.sql" />
+    <None Include="Demo Helper Scripts\05_Hashbytes_DiffDb.sql" />
+    <None Include="Demo Helper Scripts\07_CDC.sql" />
+    <None Include="Demo Helper Scripts\08_Merge.sql" />
+    <None Include="Demo Helper Scripts\09_Date_Based.sql" />
+    <None Include="SSIS Design Patterns Database Overwrite.publish.xml" />
+    <Build Include="DML\Stored Procedures\DeleteFromSourceTable.sql" />
+    <None Include="Demo Helper Scripts\13_Task_Factory_SCD.sql" />
+    <None Include="Demo Helper Scripts\14_AdminSettings.sql" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSchemaModel FileFormatVersion="1.2" SchemaVersion="2.4" DspName="Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider" CollationLcid="1033" CollationCaseSensitive="False" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+	<Header>
+		<CustomData Category="AnsiNulls">
+			<Metadata Name="AnsiNulls" Value="True" />
+		</CustomData>
+		<CustomData Category="QuotedIdentifier">
+			<Metadata Name="QuotedIdentifier" Value="True" />
+		</CustomData>
+		<CustomData Category="CompatibilityMode">
+			<Metadata Name="CompatibilityMode" Value="120" />
+		</CustomData>
+		<CustomData Category="Reference" Type="Assembly">
+			<Metadata Name="LogicalName" Value="SSIS_Design_Patterns_Database.dll" />
+			<Metadata Name="FileName" Value="C:\USERS\VITALII_KUDRIAVTCEV\DESKTOP\DEMOS\SSIS DESIGN PATTERNS DATABASE\OBJ\DEBUG\SSIS_DESIGN_PATTERNS_DATABASE.DLL" />
+			<Metadata Name="AssemblyName" Value="SSIS_Design_Patterns_Database" />
+			<Metadata Name="PermissionSet" Value="SAFE" />
+			<Metadata Name="Owner" Value="" />
+			<Metadata Name="GenerateSqlClrDdl" Value="True" />
+			<Metadata Name="IsVisible" Value="True" />
+			<Metadata Name="IsModelAware" Value="True" />
+			<Metadata Name="SkipCreationIfEmpty" Value="True" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\SSIS_Design_Patterns_Database.pdb" />
+		</CustomData>
+		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
+	</Header>
+	<Model>
+		<Element Type="SqlDatabaseOptions">
+			<Property Name="Collation" Value="SQL_Latin1_General_CP1_CI_AS" />
+			<Property Name="IsAnsiNullDefaultOn" Value="True" />
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsAnsiWarningsOn" Value="True" />
+			<Property Name="IsArithAbortOn" Value="True" />
+			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
+			<Property Name="IsTornPageProtectionOn" Value="False" />
+			<Property Name="IsFullTextEnabled" Value="True" />
+			<Property Name="PageVerifyMode" Value="3" />
+			<Property Name="DefaultLanguage" Value="" />
+			<Property Name="DefaultFullTextLanguage" Value="" />
+			<Relationship Name="DefaultFilegroup">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[Admin]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[Admin].[READ_ME]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @message NVARCHAR(4000)
+  DECLARE @crlf NVARCHAR(4) = char(10) + char(13)
+
+  SET @message = '' 
+  SET @message = @message + @crlf + 'This is just a proc with instructions to tell you how to get started. '
+  SET @message = @message + @crlf + '------------------------------------------------------------------------------------------------- '
+  SET @message = @message + @crlf + '  1. Execute the stored proc DDL.CreateAllObjects. This will create all of the tables in the '
+  SET @message = @message + @crlf + '     Source and Target schemas, then populate them with base data. After that it will create the'
+  SET @message = @message + @crlf + '     stored procs in the CUD schema to update/insert to the individual tables'
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '  2. Run the basic package to demonstrate what an initial load would be. Show the data in '
+  SET @message = @message + @crlf + '     the target table. All rows should have Create in the CUID (Create Update Insert Delete) '
+  SET @message = @message + @crlf + '     column.'
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '  3. After running the basic package, run the CUD... stored proc which corresponds with the table.'
+  SET @message = @message + @crlf + '     This will add new rows to the table and update existing ones so you can do a demo of the '
+  SET @message = @message + @crlf + '     Insert/Update functionality'
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '  4. Run the package a second time to show the new/updated rows in the Target table. '
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '------------------------------------------------------------------------------------------------- '
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '  Author Robert C. Cain, MVP, MCTS'
+  SET @message = @message + @crlf + '  http://arcanecode.com | @ArcaneCode'
+  SET @message = @message + @crlf + ' '
+  SET @message = @message + @crlf + '------------------------------------------------------------------------------------------------- '
+
+  PRINT @message
+  SELECT @message
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[Admin]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="2298" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [Admin].[READ_ME]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlSchema" Name="[CUD]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[DDL]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateAllObjects]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @MaxRows            BIGINT = 100000
+  DECLARE @MaxRowsSmall       BIGINT = 10000
+  DECLARE @InsertRows         BIGINT = 150000
+  DECLARE @UpdateFrom         BIGINT = 1000
+  DECLARE @UpdateThru         BIGINT = 5000
+  DECLARE @InsertRowsSmallT1  BIGINT = 15000
+  DECLARE @InsertRowsSmallT2  BIGINT = 20000
+  DECLARE @UpdateFromT1       BIGINT = 100
+  DECLARE @UpdateThruT1       BIGINT = 500
+  DECLARE @UpdateFromT2       BIGINT = 1000
+  DECLARE @UpdateThruT2       BIGINT = 1500
+  DECLARE @DeleteFrom         BIGINT = 6000
+  DECLARE @DeleteThru         BIGINT = 7000
+  DECLARE @IncludeType2       BIT = 1
+  DECLARE @DoNotIncludeType2  BIT = 0
+  DECLARE @IncludeDelete      BIT = 1
+
+  PRINT 'Creating 01_Trunc_and_Load with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '01_Trunc_and_Load', @MaxRows
+
+  PRINT 'Creating 02_SCD_Type_1 with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '02_SCD_Type_1', @MaxRowsSmall
+
+  PRINT 'Creating 03_SCD_Type_2 with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '03_SCD_Type_2', @MaxRowsSmall
+
+  PRINT 'Creating 04_Set_Based_Type_1 with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '04_Set_Based_Type_1', @MaxRows
+
+  PRINT 'Creating 04_Set_Based_Type_2 with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '04_Set_Based_Type_2', @MaxRows
+
+  PRINT 'Creating 05_Hashbytes_DiffDb with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '05_Hashbytes_DiffDb', @MaxRows
+
+  PRINT 'Creating 06_Hashbytes_SameDb with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '06_Hashbytes_SameDb', @MaxRows
+
+  PRINT 'Creating 07_CDC with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '07_CDC', @MaxRows
+
+  PRINT 'Creating 08_Merge with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '08_Merge', @MaxRows
+
+  PRINT 'Creating 09_Date_Based with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '09_Date_Based', @MaxRows
+  
+  PRINT 'Creating 10_Fact with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '10_Fact', @MaxRows
+
+  EXEC DDL.CreateSourceTable 'Target', '10_Fact_FakeDim1', 150000
+  EXEC DDL.CreateSourceTable 'Target', '10_Fact_FakeDim2', 150000
+  EXEC DDL.CreateSourceTable 'Target', '10_Fact_FakeDim3', 150000
+
+  PRINT 'Creating 13_Task_Factory_SCD with ' + FORMAT(@MaxRows, '#,##0') + ' rows'
+  EXEC DDL.CreateSourceTable 'Source', '13_Task_Factory_SCD', @MaxRows
+
+
+  PRINT 'Creating Target Tables'
+  EXEC DDL.CreateTargetTable 'Target', '01_Trunc_and_Load'
+  EXEC DDL.CreateTargetTable 'Target', '02_SCD_Type_1'
+  EXEC DDL.CreateTargetTable 'Target', '03_SCD_Type_2', @IncludeType2
+  EXEC DDL.CreateTargetTable 'Target', '04_Set_Based_Type_1'
+  EXEC DDL.CreateTargetTable 'Target', '04_Set_Based_Type_2', @IncludeType2
+  EXEC DDL.CreateTargetTable 'Target', '05_Hashbytes_DiffDb' 
+  EXEC DDL.CreateTargetTable 'Target', '06_Hashbytes_SameDb' 
+  EXEC DDL.CreateTargetTable 'Target', '07_CDC'
+  EXEC DDL.CreateTargetTable 'Target', '08_Merge'
+  EXEC DDL.CreateTargetTable 'Target', '09_Date_Based'
+  EXEC DDL.CreateFactTable   'Target', '10_Fact'
+  EXEC DDL.CreateTargetTable 'Target', '13_Task_Factory_SCD', @IncludeType2
+
+
+  PRINT 'Creating ETL Tables'
+  EXEC [DDL].[CreateETLTable] '04_Set_Based_Type_1'
+  EXEC [DDL].[CreateETLTable] '04_Set_Based_Type_2', @IncludeType2, @IncludeDelete 
+  EXEC [DDL].[CreateETLTable] '05_Hashbytes_DiffDb'
+  EXEC [DDL].[CreateETLTable] '06_Hashbytes_SameDb', @DoNotIncludeType2, @IncludeDelete
+  EXEC [DDL].[CreateETLTable] '07_CDC', @DoNotIncludeType2, @IncludeDelete
+  EXEC [DDL].[CreateETLTable] '09_Date_Based'
+  EXEC [DDL].[CreateFactTable] 'ETL', '10_Fact_Update'
+  EXEC [DDL].[CreateETLTable] '13_Task_Factory_SCD', @IncludeType2, @IncludeDelete 
+  
+  
+  PRINT 'Creating Stored Procedures'
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '01_Trunc_and_Load',       'Source', '01_Trunc_and_Load' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '02_SCD_Type_1',           'Source', '02_SCD_Type_1' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '03_SCD_Type_2_T1',        'Source', '03_SCD_Type_2' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '03_SCD_Type_2_T2',        'Source', '03_SCD_Type_2' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '04_Set_Based_Type_1' ,    'Source', '04_Set_Based_Type_1' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '04_Set_Based_Type_2_T1' , 'Source', '04_Set_Based_Type_2' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '04_Set_Based_Type_2_T2' , 'Source', '04_Set_Based_Type_2' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '05_Hashbytes_DiffDb' ,    'Source', '05_Hashbytes_DiffDb' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '06_Hashbytes_SameDb' ,    'Source', '06_Hashbytes_SameDb' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '07_CDC'       ,           'Source', '07_CDC'        
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '08_Merge'     ,           'Source', '08_Merge'      
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '09_Date_Based',           'Source', '09_Date_Based' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '10_Fact',                 'Source', '10_Fact' 
+
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '13_Task_Factory_SCD_T1' , 'Source', '13_Task_Factory_SCD' 
+  EXEC [DDL].[CreateCUDProcs] 'CUD', '13_Task_Factory_SCD_T2' , 'Source', '13_Task_Factory_SCD' 
+
+  PRINT 'Creating Admin.Settings Table'
+  IF (NOT EXISTS (SELECT * 
+                    FROM INFORMATION_SCHEMA.TABLES 
+                   WHERE TABLE_SCHEMA = 'Admin' 
+                     AND TABLE_NAME = 'Settings'
+                 )
+     )
+  BEGIN
+    CREATE TABLE [Admin].[Settings]
+    (
+      [Package] NVARCHAR(255)  NOT NULL
+    , [Key]     NVARCHAR(255)  NOT NULL
+    , [Value]   NVARCHAR(2000) NOT NULL
+    )
+  END
+
+  IF (NOT EXISTS (SELECT 1 
+                    FROM [Admin].[Settings]
+                   WHERE [Package] = '14_1_AdminSettings_Master'
+                     AND [Key] = 'PretendConnectionString'
+                 )
+     )
+  BEGIN
+    INSERT INTO [Admin].[Settings]
+      ([Package], [Key], [Value])
+    VALUES 
+      ('14_1_AdminSettings_Master', 'PretendConnectionString', 'Here is a pretend connection string')
+  END
+
+  IF (NOT EXISTS (SELECT 1 
+                    FROM [Admin].[Settings]
+                   WHERE [Package] = '14_3_AdminSettings_Child_2'
+                     AND [Key] = 'RunPackage'
+                 )
+     )
+  BEGIN
+    INSERT INTO [Admin].[Settings]
+      ([Package], [Key], [Value])
+    VALUES 
+      ('14_3_AdminSettings_Child_2', 'RunPackage', 'Y')
+  END   
+
+
+  IF (NOT EXISTS (SELECT 1 
+                    FROM [Admin].[Settings]
+                   WHERE [Package] = '14_4_AdminSettings_Child_3'
+                     AND [Key] = 'Loop'
+                     AND [Value] = 'Loop 1'
+                 )
+     )
+  BEGIN
+    INSERT INTO [Admin].[Settings]
+      ([Package], [Key], [Value])
+    VALUES 
+        ('14_4_AdminSettings_Child_3', 'Loop', 'Loop 1')
+      , ('14_4_AdminSettings_Child_3', 'Loop', 'Loop 2')
+      , ('14_4_AdminSettings_Child_3', 'Loop', 'Loop 3')
+  END   
+
+    PRINT 'Creating Admin.LoadBalancer Table'
+  IF (NOT EXISTS (SELECT * 
+                    FROM INFORMATION_SCHEMA.TABLES 
+                   WHERE TABLE_SCHEMA = 'Admin' 
+                     AND TABLE_NAME = 'LoadBalancer'
+                 )
+     )
+  BEGIN
+    CREATE TABLE [Admin].[LoadBalancer]
+    (
+	  [LoadBalancerKey] INT IDENTITY NOT NULL
+    , [Package] NVARCHAR(255)  NOT NULL
+    , [LoadPath] INT  NOT NULL
+	, [LoadOrder] INT NOT NULL
+    , [RunPackage] NCHAR(1) NOT NULL DEFAULT 'Y'
+	, [Parameter] NVARCHAR(255) NULL
+    )
+  END
+  ;
+
+  TRUNCATE TABLE [Admin].[LoadBalancer];
+  
+  INSERT INTO [Admin].[LoadBalancer]
+    ( [Package], [LoadPath], [LoadOrder], [RunPackage], [Parameter] )
+  VALUES
+    ( '15_2_LoadBalancer_Child_1.dtsx', 1, 10, 'Y', 'Order 10 Path 1 Child 1' )
+  , ( '15_3_LoadBalancer_Child_2.dtsx', 2, 20, 'Y', 'Order 20 Path 2 Child 2' )
+  , ( '15_2_LoadBalancer_Child_1.dtsx', 1, 30, 'Y', 'Order 30 Path 1 Child 1' )
+  , ( '15_3_LoadBalancer_Child_2.dtsx', 2, 40, 'Y', 'Order 40 Path 2 Child 2' )
+  , ( '15_3_LoadBalancer_Child_2.dtsx', 2, 50, 'Y', 'Order 50 Path 2 Child 2' )
+  ;
+
+
+  PRINT 'Adding CDC'
+  -- Turn on CDC (Once per Database)
+  EXEC sys.sp_cdc_enable_db;
+  
+  -- Create the table to handle CDC States (Once per Database)
+  CREATE TABLE [dbo].[cdc_states] 
+   ([name] [nvarchar](256) NOT NULL, 
+   [state] [nvarchar](256) NOT NULL) ON [PRIMARY];
+  
+  CREATE UNIQUE NONCLUSTERED INDEX [cdc_states_name] ON 
+   [dbo].[cdc_states] 
+   ( [name] ASC ) 
+   WITH (PAD_INDEX  = OFF) ON [PRIMARY]
+  
+  -- Enable it for the 07_CDC table (do per table)
+    EXEC sys.sp_cdc_enable_table
+      @source_schema = 'Source', -- Schema of Source Table
+      @source_name = '07_CDC', -- Schema of Source Table
+      @role_name = NULL, -- Controls Access to Change Data
+      @supports_net_changes = 1 -- Supports Querying for net changes
+  
+
+
+  PRINT 'Done' 
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateSourceTable]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateTargetTable]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateFactTable]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateETLTable]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcs]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nchar]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="9335" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateAllObjects]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateCUDProcs]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @sn AS NVARCHAR(1000)
+  DECLARE @crlf NCHAR(2)
+
+  SET @sn = '''' + @TableSchemaName + ''' , ''' + @TableName + ''''
+  SET @crlf = char(13) + char(10)
+  
+  -- If the proc already exists, drop it
+  IF EXISTS (SELECT [SPECIFIC_SCHEMA]
+                  , [SPECIFIC_NAME]
+               FROM [INFORMATION_SCHEMA].[ROUTINES]
+              WHERE [ROUTINE_TYPE] = 'PROCEDURE'
+                AND [SPECIFIC_SCHEMA] = @ProcSchemaName 
+                AND [SPECIFIC_NAME] = @ProcName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+  
+
+  -- Create the proc
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '] ' + @crlf
+  SET @sqlStatement = @sqlStatement + '(' + @crlf
+  SET @sqlStatement = @sqlStatement + '  @InsertStart BIGINT      -- Set the max value to load' + @crlf
+  SET @sqlStatement = @sqlStatement + ', @UpdateFrom BIGINT' + @crlf
+  SET @sqlStatement = @sqlStatement + ', @UpdateThru BIGINT' + @crlf
+  SET @sqlStatement = @sqlStatement + ', @DeleteFrom BIGINT = -1' + @crlf
+  SET @sqlStatement = @sqlStatement + ', @DeleteThru BIGINT = -1' + @crlf
+  SET @sqlStatement = @sqlStatement + ', @IncludeType2Change BIT = 0' + @crlf
+  SET @sqlStatement = @sqlStatement + ')' + @crlf
+  SET @sqlStatement = @sqlStatement + 'AS ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+
+  SET @sqlStatement = @sqlStatement + '  IF @InsertStart > -1 ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + '      EXEC DML.InsertIntoSourceTable ' + @sn + ', @InsertStart ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    END ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + '  IF @UpdateFrom > -1 ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + '      EXEC DML.UpdateSourceTable  ' + @sn + ', @UpdateFrom, @UpdateThru, @IncludeType2Change ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    END ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + '  IF @DeleteFrom > -1 ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + '      EXEC DML.DeleteFromSourceTable ' + @sn + ', @DeleteFrom, @DeleteThru ' + @crlf
+  SET @sqlStatement = @sqlStatement + '    END ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'END ' + @crlf
+
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcs].[@TableSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcs].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcs].[@ProcSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcs].[@ProcName]" />
+				</Entry>
+				<Entry />
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcs].[@ProcSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcs].[@ProcName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcs].[@TableSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcs].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="3227" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateCUDProcs]&#xD;&#xA;(   @ProcSchemaName NVARCHAR(255)&#xD;&#xA;  , @ProcName NVARCHAR(255)&#xD;&#xA;  , @TableSchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  --, @InsertStart BIGINT      -- Set the max value to load&#xD;&#xA;  --, @UpdateFrom BIGINT&#xD;&#xA;  --, @UpdateThru BIGINT&#xD;&#xA;  --, @DeleteFrom BIGINT&#xD;&#xA;  --, @DeleteThru BIGINT&#xD;&#xA;  --, @IncludeType2Change BIT = 0&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateCUDProcsType1]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @crlf NCHAR(2)
+  SET @crlf = char(13) + char(10)
+  
+  -- If the proc already exists, drop it
+  IF EXISTS (SELECT [SPECIFIC_SCHEMA]
+                  , [SPECIFIC_NAME]
+               FROM [INFORMATION_SCHEMA].[ROUTINES]
+              WHERE [ROUTINE_TYPE] = 'PROCEDURE'
+                AND [SPECIFIC_SCHEMA] = @ProcSchemaName 
+                AND [SPECIFIC_NAME] = @ProcName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+  
+  -- Create the proc
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '] ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'AS ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+
+  SET @sqlStatement = @sqlStatement + '  EXEC DML.InsertIntoSourceTable ''' + @TableSchemaName + ''', ''' + @TableName + ''', ' + CAST(@InsertStart AS NVARCHAR) + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + '  EXEC DML.UpdateSourceTableType1  ''' + @TableSchemaName + ''', ''' + @TableName + ''', ' + CAST(@UpdateFrom AS NVARCHAR) + ', ' + CAST(@UpdateThru AS NVARCHAR) + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'END ' + @crlf
+
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@ProcSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@ProcName]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@TableSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@TableName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@InsertStart]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@UpdateFrom]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType1].[@UpdateThru]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@ProcSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@ProcName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@TableSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@InsertStart]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@UpdateFrom]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType1].[@UpdateThru]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="1795" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateCUDProcsType1]&#xD;&#xA;(   @ProcSchemaName NVARCHAR(255)&#xD;&#xA;  , @ProcName NVARCHAR(255)&#xD;&#xA;  , @TableSchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @InsertStart BIGINT      -- Set the max value to load&#xD;&#xA;  , @UpdateFrom BIGINT&#xD;&#xA;  , @UpdateThru BIGINT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateCUDProcsType2]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @crlf NCHAR(2)
+  SET @crlf = char(13) + char(10)
+  
+  -- If the proc already exists, drop it
+  IF EXISTS (SELECT [SPECIFIC_SCHEMA]
+                  , [SPECIFIC_NAME]
+               FROM [INFORMATION_SCHEMA].[ROUTINES]
+              WHERE [ROUTINE_TYPE] = 'PROCEDURE'
+                AND [SPECIFIC_SCHEMA] = @ProcSchemaName 
+                AND [SPECIFIC_NAME] = @ProcName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+  
+  -- Create the proc
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '] ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'AS ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'BEGIN ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+
+  SET @sqlStatement = @sqlStatement + '  EXEC DML.InsertIntoSourceTable ''' + @TableSchemaName + ''', ''' + @TableName + ''', ' + CAST(@InsertStart AS NVARCHAR) + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + '  EXEC DML.UpdateSourceTableType2  ''' + @TableSchemaName + ''', ''' + @TableName + ''', ' + CAST(@UpdateFrom AS NVARCHAR) + ', ' + CAST(@UpdateThru AS NVARCHAR) + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + ' ' + @crlf
+  SET @sqlStatement = @sqlStatement + 'END ' + @crlf
+
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@ProcSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@ProcName]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@TableSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@TableName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@InsertStart]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@UpdateFrom]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateCUDProcsType2].[@UpdateThru]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@ProcSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@ProcName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@TableSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@InsertStart]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@UpdateFrom]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateCUDProcsType2].[@UpdateThru]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="1795" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateCUDProcsType2]&#xD;&#xA;(   @ProcSchemaName NVARCHAR(255)&#xD;&#xA;  , @ProcName NVARCHAR(255)&#xD;&#xA;  , @TableSchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @InsertStart BIGINT      -- Set the max value to load&#xD;&#xA;  , @UpdateFrom BIGINT&#xD;&#xA;  , @UpdateThru BIGINT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateETLTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @schemaName   NVARCHAR(50) = 'ETL'
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @etlTableName NVARCHAR(255)
+  DECLARE @columnDefs   NVARCHAR(2000)
+
+  -- Delete the tables if they exist
+  SET @etlTableName = @TableName + '_Insert'    
+  EXEC [DDL].[DropTableIfExists] @SchemaName, @etlTableName 
+
+  SET @etlTableName = @TableName + '_Update'    
+  EXEC [DDL].[DropTableIfExists] @SchemaName, @etlTableName 
+
+  SET @etlTableName = @TableName + '_Delete'    
+  EXEC [DDL].[DropTableIfExists] @SchemaName, @etlTableName 
+
+  -- Set the column definitions for inserts / updates
+  SET @columnDefs = ''
+	SET @columnDefs = @columnDefs + '[BigNumber] BIGINT NULL, '
+	SET @columnDefs = @columnDefs + '[FormattedComma] NVARCHAR(4000) NULL, '
+	SET @columnDefs = @columnDefs + '[FormattedZero] NVARCHAR(4000) NULL, '
+	SET @columnDefs = @columnDefs + '[SourceCIUD] NVARCHAR(20) NULL, '
+	SET @columnDefs = @columnDefs + '[TargetCIUD] NVARCHAR(20) NULL, '
+	SET @columnDefs = @columnDefs + '[IsRowDeleted] BIT NOT NULL DEFAULT 0, '
+
+  IF @IncludeType2Change = 0
+    BEGIN
+	    SET @columnDefs = @columnDefs + '[LastUpdateDate] DATETIME NULL '
+    END
+  ELSE
+    BEGIN
+	    SET @columnDefs = @columnDefs + '[EffectiveDate] DATETIME NULL, '
+	    SET @columnDefs = @columnDefs + '[ExpirationDate] DATETIME NULL, '
+	    SET @columnDefs = @columnDefs + '[IsCurrentRecord] NCHAR(1) DEFAULT ''Y'' NOT NULL '
+    END
+
+  SET @columnDefs = @columnDefs + ') ON [PRIMARY] '
+
+  -- Create the insert and update ETL tables
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '_Insert] ('
+  SET @sqlStatement = @sqlStatement + @columnDefs
+  EXECUTE sp_executesql @sqlStatement
+
+  IF @IncludeType2Change = 1
+    BEGIN
+      SET @sqlStatement = ''
+      SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '_Insert_NewType2] ('
+      SET @sqlStatement = @sqlStatement + @columnDefs
+      EXECUTE sp_executesql @sqlStatement
+    END
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '_Update] ('
+  SET @sqlStatement = @sqlStatement + @columnDefs
+  EXECUTE sp_executesql @sqlStatement
+  
+  IF @IncludeType2Change = 1
+    BEGIN
+      SET @sqlStatement = ''
+      SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '_Update_ExpiringType2] ('
+      SET @sqlStatement = @sqlStatement + @columnDefs
+      EXECUTE sp_executesql @sqlStatement
+    END
+
+
+  IF @IncludeDelete = 1
+    BEGIN
+      -- For deletes we only need the PK and metadata. 
+      SET @columnDefs = ''
+	    SET @columnDefs = @columnDefs + '[BigNumber] BIGINT NULL, '
+	    SET @columnDefs = @columnDefs + '[IsRowDeleted] BIT NOT NULL DEFAULT 0, '
+	    SET @columnDefs = @columnDefs + '[LastUpdateDate] DATETIME NULL '
+      SET @columnDefs = @columnDefs + ') ON [PRIMARY] '
+
+      -- Create the delete table
+      SET @sqlStatement = ''
+      SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '_Delete] ('
+      SET @sqlStatement = @sqlStatement + @columnDefs
+      EXECUTE sp_executesql @sqlStatement
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateETLTable].[@TableName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[DropTableIfExists]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateETLTable].[@IncludeType2Change]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateETLTable].[@IncludeDelete]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateETLTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateETLTable].[@IncludeType2Change]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateETLTable].[@IncludeDelete]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="3442" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateETLTable]&#xD;&#xA;(   @TableName          NVARCHAR(255)&#xD;&#xA;  , @IncludeType2Change BIT = 0&#xD;&#xA;  , @IncludeDelete      BIT = 0&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateFactTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  
+  -- If the table already exists, drop it
+  IF EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+               FROM [INFORMATION_SCHEMA].[TABLES]
+              WHERE [TABLE_SCHEMA] = @SchemaName
+                AND [TABLE_NAME] = @TableName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP TABLE [' + @SchemaName + '].[' + @TableName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '] ('
+	SET @sqlStatement = @sqlStatement + '[' + @TableName + 'BK] BIGINT NOT NULL, '
+	SET @sqlStatement = @sqlStatement + '[FakeDim1_BigNumber] BIGINT NULL, '
+	SET @sqlStatement = @sqlStatement + '[FakeDim2_FormattedComma] NVARCHAR(4000) NULL, '
+	SET @sqlStatement = @sqlStatement + '[FakeDim3_FormattedZero] NVARCHAR(4000) NULL, '
+	SET @sqlStatement = @sqlStatement + '[TargetCIUD] NVARCHAR(20) NOT NULL, '
+  SET @sqlStatement = @sqlStatement + '[LastUpdateDate] DATETIME NOT NULL '
+  SET @sqlStatement = @sqlStatement + ') ON [PRIMARY] '
+
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateFactTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateFactTable].[@TableName]" />
+				</Entry>
+				<Entry />
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateFactTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateFactTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateFactTable].[@IncludeType2]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1330" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [DDL].[CreateFactTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @IncludeType2 BIT = 0&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateSourceTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  
+  -- If the table already exists, drop it
+  IF EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+               FROM [INFORMATION_SCHEMA].[TABLES]
+              WHERE [TABLE_SCHEMA] = @SchemaName
+                AND [TABLE_NAME] = @TableName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP TABLE [' + @SchemaName + '].[' + @TableName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+  
+  -- Create the table
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'WITH E00(N) AS (SELECT 1 UNION ALL SELECT 1), '
+  SET @sqlStatement = @sqlStatement + '     E02(N) AS (SELECT 1 FROM E00 a, E00 b), '
+  SET @sqlStatement = @sqlStatement + '     E04(N) AS (SELECT 1 FROM E02 a, E02 b), '
+  SET @sqlStatement = @sqlStatement + '     E08(N) AS (SELECT 1 FROM E04 a, E04 b), '
+  SET @sqlStatement = @sqlStatement + '     E16(N) AS (SELECT 1 FROM E08 a, E08 b), '
+  SET @sqlStatement = @sqlStatement + '     E32(N) AS (SELECT 1 FROM E16 a, E16 b), '
+  SET @sqlStatement = @sqlStatement + 'cteTally(N) AS (SELECT ROW_NUMBER() OVER (ORDER BY N) FROM E32) '
+  SET @sqlStatement = @sqlStatement + ' SELECT N AS BigNumber '
+  SET @sqlStatement = @sqlStatement + '      , FORMAT(N, ''#,##0'') AS FormattedComma '
+  SET @sqlStatement = @sqlStatement + '      , FORMAT(N, ''0000000000000'') AS FormattedZero '
+  SET @sqlStatement = @sqlStatement + '      , CAST(''Created'' AS NVARCHAR(20)) AS SourceCIUD '
+  SET @sqlStatement = @sqlStatement + '      , GETDATE() AS LastUpdateDate '
+  SET @sqlStatement = @sqlStatement + '   INTO [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + '   FROM cteTally '
+  SET @sqlStatement = @sqlStatement + '  WHERE N <= ' + CAST(@MaxBigNumber AS NVARCHAR) + '; '
+  
+  EXECUTE sp_executesql @sqlStatement
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'ALTER TABLE [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + 'ALTER COLUMN BigNumber BIGINT NOT NULL '
+  EXECUTE sp_executesql @sqlStatement
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'ALTER TABLE [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + 'ADD CONSTRAINT [PK_' + @TableName + '] PRIMARY KEY CLUSTERED ([BigNumber] ASC) '
+  EXECUTE sp_executesql @sqlStatement
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateSourceTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateSourceTable].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateSourceTable].[@MaxBigNumber]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateSourceTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateSourceTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateSourceTable].[@MaxBigNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="6" />
+				<Property Name="Length" Value="2586" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateSourceTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @MaxBigNumber BIGINT      -- Set the max value to load&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[CreateTargetTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  
+  -- If the table already exists, drop it
+  IF EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+               FROM [INFORMATION_SCHEMA].[TABLES]
+              WHERE [TABLE_SCHEMA] = @SchemaName
+                AND [TABLE_NAME] = @TableName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP TABLE [' + @SchemaName + '].[' + @TableName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'CREATE TABLE [' + @SchemaName + '].[' + @TableName + '] ('
+	SET @sqlStatement = @sqlStatement + '[' + @TableName + 'SK] BIGINT IDENTITY NOT NULL, '
+	SET @sqlStatement = @sqlStatement + '[BigNumber] BIGINT NULL, '
+	SET @sqlStatement = @sqlStatement + '[FormattedComma] NVARCHAR(4000) NULL, '
+	SET @sqlStatement = @sqlStatement + '[FormattedZero] NVARCHAR(4000) NULL, '
+	SET @sqlStatement = @sqlStatement + '[SourceCIUD] NVARCHAR(20) NOT NULL, '
+	SET @sqlStatement = @sqlStatement + '[TargetCIUD] NVARCHAR(20) NOT NULL, '
+	SET @sqlStatement = @sqlStatement + '[IsRowDeleted] BIT NOT NULL DEFAULT 0, '
+  
+  IF @IncludeType2 = 0
+  BEGIN
+	  SET @sqlStatement = @sqlStatement + '[LastUpdateDate] DATETIME NOT NULL '
+  END
+  ELSE
+  BEGIN
+	  SET @sqlStatement = @sqlStatement + '[EffectiveDate] DATETIME NOT NULL, '
+	  SET @sqlStatement = @sqlStatement + '[ExpirationDate] DATETIME NULL, '
+	  SET @sqlStatement = @sqlStatement + '[IsCurrentRecord] NCHAR(1) DEFAULT ''Y'' NOT NULL '
+  END
+  SET @sqlStatement = @sqlStatement + ') ON [PRIMARY] '
+
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateTargetTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[CreateTargetTable].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[CreateTargetTable].[@IncludeType2]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateTargetTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateTargetTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[CreateTargetTable].[@IncludeType2]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="1788" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE PROCEDURE [DDL].[CreateTargetTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @IncludeType2 BIT = 0&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[DropAllObjects]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  -- When you are done and want to remove unnecessary objects, run this
+  -- At the end only the required items will remain. 
+  -- Use the DDL.CreateAllObjects to recreate everything
+
+  EXEC [DDL].[DropTableIfExists] 'Source', '01_Trunc_and_Load'
+  EXEC [DDL].[DropTableIfExists] 'Source', '02_SCD_Type_1'
+  EXEC [DDL].[DropTableIfExists] 'Source', '03_SCD_Type_2'
+  EXEC [DDL].[DropTableIfExists] 'Source', '04_Set_Based'
+  EXEC [DDL].[DropTableIfExists] 'Source', '05_Hashbytes'
+  EXEC [DDL].[DropTableIfExists] 'Source', '06_CDC'
+  EXEC [DDL].[DropTableIfExists] 'Source', '07_Merge'
+  EXEC [DDL].[DropTableIfExists] 'Source', '08_Date_Based'  
+  EXEC [DDL].[DropTableIfExists] 'Target', '01_Trunc_and_Load'
+  EXEC [DDL].[DropTableIfExists] 'Target', '02_SCD_Type_1'
+  EXEC [DDL].[DropTableIfExists] 'Target', '03_SCD_Type_2'
+  EXEC [DDL].[DropTableIfExists] 'Target', '04_Set_Based'
+  EXEC [DDL].[DropTableIfExists] 'Target', '05_Hashbytes' 
+  EXEC [DDL].[DropTableIfExists] 'Target', '06_CDC'
+  EXEC [DDL].[DropTableIfExists] 'Target', '07_Merge'
+  EXEC [DDL].[DropTableIfExists] 'Target', '08_Date_Based'
+
+  EXEC [DDL].[DropTableIfExists] 'ETL', '05_Hashbytes_Insert'
+  EXEC [DDL].[DropTableIfExists] 'ETL', '05_Hashbytes_Update'
+  EXEC [DDL].[DropTableIfExists] 'ETL', '05_Hashbytes_Delete'
+  
+  EXEC [DDL].[DropProcIfExists] 'CUD', '01_Trunc_and_Load'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '02_SCD_Type_1'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '03_SCD_Type_2_T1'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '03_SCD_Type_2_T2'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '04_Set_Based'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '05_Hashbytes'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '06_CDC'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '07_Merge'
+  EXEC [DDL].[DropProcIfExists] 'CUD', '08_Date_Based'  
+  
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[DDL].[DropTableIfExists]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[DropProcIfExists]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="8" />
+				<Property Name="Length" Value="1897" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DDL].[DropAllObjects]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[DropProcIfExists]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+
+  -- If the proc already exists, drop it
+  IF EXISTS (SELECT [SPECIFIC_SCHEMA]
+                  , [SPECIFIC_NAME]
+               FROM [INFORMATION_SCHEMA].[ROUTINES]
+              WHERE [ROUTINE_TYPE] = 'PROCEDURE'
+                AND [SPECIFIC_SCHEMA] = @ProcSchemaName 
+                AND [SPECIFIC_NAME] = @ProcName
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP PROCEDURE [' + @ProcSchemaName + '].[' + @ProcName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[DropProcIfExists].[@ProcSchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[DropProcIfExists].[@ProcName]" />
+				</Entry>
+				<Entry />
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[DropProcIfExists].[@ProcSchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[DropProcIfExists].[@ProcName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="688" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE PROCEDURE [DDL].[DropProcIfExists]&#xD;&#xA;(   @ProcSchemaName NVARCHAR(255)&#xD;&#xA;  , @ProcName NVARCHAR(255)&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DDL].[DropTableIfExists]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+
+  IF EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+               FROM [INFORMATION_SCHEMA].[TABLES]
+              WHERE [TABLE_SCHEMA] = @schemaName
+                AND [TABLE_NAME] = @TableName 
+            )
+  BEGIN
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'DROP TABLE [' + @schemaName + '].[' + @TableName + '];'
+    EXECUTE sp_executesql @sqlStatement
+  END
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DDL].[DropTableIfExists].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DDL].[DropTableIfExists].[@TableName]" />
+				</Entry>
+				<Entry />
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[DropTableIfExists].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DDL].[DropTableIfExists].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DDL]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="549" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [DDL].[DropTableIfExists]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  , @TableName NVARCHAR(255)&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlSchema" Name="[DML]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DML].[DeleteFromSourceTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @message NVARCHAR(2000)
+
+  -- If the table doesn't exist raise an error
+  IF NOT EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+                   FROM [INFORMATION_SCHEMA].[TABLES]
+                  WHERE [TABLE_SCHEMA] = @SchemaName
+                    AND [TABLE_NAME] = @TableName
+                )
+  BEGIN 
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'ERROR! TABLE [' + @SchemaName + '].[' + @TableName + '] does not exist.';
+    PRINT @sqlStatement
+    RETURN
+  END
+
+
+  /* Validate FromBigNumber parameter -----------------------------------------------------------*/
+  -- Get the min possible big number
+  DECLARE @minBigNumber BIGINT
+  DECLARE @minBigNumberReturn BIGINT
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' SELECT @minBigNumberReturn = MIN(BigNumber) '
+  SET @sqlStatement = @sqlStatement + '   FROM [' + @SchemaName + '].[' + @TableName + '];'
+
+  EXECUTE sp_executesql @sqlStatement, N'@minBigNumberReturn BIGINT OUTPUT', @minBigNumberReturn=@minBigNumber OUTPUT
+
+  IF @FromBigNumber < @minBigNumber SET @FromBigNumber = @minBigNumber
+
+  /* Validate ThruBigNumber parameter -----------------------------------------------------------*/
+
+  -- Get the max possible big number
+  DECLARE @maxBigNumber BIGINT
+  DECLARE @maxBigNumberReturn BIGINT
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' SELECT @maxBigNumberReturn = MAX(BigNumber) '
+  SET @sqlStatement = @sqlStatement + '   FROM [' + @SchemaName + '].[' + @TableName + '];'
+
+  EXECUTE sp_executesql @sqlStatement, N'@maxBigNumberReturn BIGINT OUTPUT', @maxBigNumberReturn=@maxBigNumber OUTPUT
+
+  IF @ThruBigNumber > @maxBigNumber SET @ThruBigNumber = @maxBigNumber
+
+  -- Check to see thru is greater than min
+  -- Ensure from is less than the max
+  IF @ThruBigNumber < @minBigNumber 
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The Thru Big Number (' 
+    SET @message = @message + CAST(@ThruBigNumber AS NVARCHAR) 
+    SET @message = @message + ') is less than the minimum value in the table of ' 
+    SET @message = @message + CAST(@minBigNumber AS NVARCHAR)
+    PRINT @message
+    RETURN
+  END
+
+  -- Ensure from is less than the max
+  IF @FromBigNumber > @maxBigNumber 
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The From Big Number (' 
+    SET @message = @message + CAST(@FromBigNumber AS NVARCHAR) 
+    SET @message = @message + ') exceeds the maximum value in the table of ' 
+    SET @message = @message + CAST(@maxBigNumber AS NVARCHAR)
+    PRINT @message
+    RETURN
+  END
+  
+
+  -- Finally validate From < Thru
+  IF @FromBigNumber > @ThruBigNumber
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The From Big Number (' 
+    SET @message = @message + CAST(@FromBigNumber AS NVARCHAR) 
+    SET @message = @message + ') cannot be greater than the Thru Big Number (' 
+    SET @message = @message + CAST(@ThruBigNumber AS NVARCHAR) + ')'
+    PRINT @message
+    RETURN
+  END
+
+  /* Generate Delete Statement ------------------------------------------------------------------*/
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' DELETE FROM [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + '  WHERE BigNumber BETWEEN ' + CAST(@FromBigNumber AS NVARCHAR) 
+  SET @sqlStatement = @sqlStatement + '    AND ' + CAST(@ThruBigNumber AS NVARCHAR)
+  
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DML].[DeleteFromSourceTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DML].[DeleteFromSourceTable].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DML].[DeleteFromSourceTable].[@FromBigNumber]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DML].[DeleteFromSourceTable].[@ThruBigNumber]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[DeleteFromSourceTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[DeleteFromSourceTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[DeleteFromSourceTable].[@FromBigNumber]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[DeleteFromSourceTable].[@ThruBigNumber]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[9223372036854775807]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DML]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="3738" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [DML].[DeleteFromSourceTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @FromBigNumber BIGINT = 0&#xD;&#xA;  , @ThruBigNumber BIGINT = 9223372036854775807&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DML].[InsertIntoSourceTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+
+  -- If the table doesn't exist raise an error
+  IF NOT EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+               FROM [INFORMATION_SCHEMA].[TABLES]
+              WHERE [TABLE_SCHEMA] = @SchemaName
+                AND [TABLE_NAME] = @TableName
+            )
+  BEGIN 
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'ERROR! TABLE [' + @SchemaName + '].[' + @TableName + '] does not exist.';
+    PRINT @sqlStatement
+    RETURN
+  END
+
+  DECLARE @startBigNumber BIGINT
+  DECLARE @startBigNumberReturn BIGINT
+
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' SELECT @startBigNumberReturn = MAX(BigNumber) '
+  SET @sqlStatement = @sqlStatement + '   FROM [' + @SchemaName + '].[' + @TableName + '];'
+
+  EXECUTE sp_executesql @sqlStatement, N'@startBigNumberReturn BIGINT OUTPUT', @startBigNumberReturn=@startBigNumber OUTPUT
+    
+  -- Create the table
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + 'WITH E00(N) AS (SELECT 1 UNION ALL SELECT 1), '
+  SET @sqlStatement = @sqlStatement + '     E02(N) AS (SELECT 1 FROM E00 a, E00 b), '
+  SET @sqlStatement = @sqlStatement + '     E04(N) AS (SELECT 1 FROM E02 a, E02 b), '
+  SET @sqlStatement = @sqlStatement + '     E08(N) AS (SELECT 1 FROM E04 a, E04 b), '
+  SET @sqlStatement = @sqlStatement + '     E16(N) AS (SELECT 1 FROM E08 a, E08 b), '
+  SET @sqlStatement = @sqlStatement + '     E32(N) AS (SELECT 1 FROM E16 a, E16 b), '
+  SET @sqlStatement = @sqlStatement + 'cteTally(N) AS (SELECT ROW_NUMBER() OVER (ORDER BY N) FROM E32) '
+  SET @sqlStatement = @sqlStatement + ' INSERT INTO [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + ' SELECT N AS BigNumber '
+  SET @sqlStatement = @sqlStatement + '      , FORMAT(N, ''#,##0'') AS FormattedComma '
+  SET @sqlStatement = @sqlStatement + '      , FORMAT(N, ''0000000000000'') AS FormattedZero '
+  SET @sqlStatement = @sqlStatement + '      , ''Insert'' AS SourceCIUD '
+  SET @sqlStatement = @sqlStatement + '      , GETDATE() AS LastUpdateDate '
+  SET @sqlStatement = @sqlStatement + '   FROM cteTally '
+  SET @sqlStatement = @sqlStatement + '  WHERE N > ' + CAST(@startBigNumber AS NVARCHAR) 
+  SET @sqlStatement = @sqlStatement + '    AND N <= ' + CAST(@MaxBigNumber AS NVARCHAR) + '; '
+  
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DML].[InsertIntoSourceTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DML].[InsertIntoSourceTable].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DML].[InsertIntoSourceTable].[@MaxBigNumber]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[InsertIntoSourceTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[InsertIntoSourceTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[InsertIntoSourceTable].[@MaxBigNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DML]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="6" />
+				<Property Name="Length" Value="2574" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DML].[InsertIntoSourceTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @MaxBigNumber BIGINT      -- Set the max value to load&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[DML].[UpdateSourceTable]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+  DECLARE @sqlStatement NVARCHAR(2000)
+  DECLARE @message NVARCHAR(2000)
+
+  -- If the table doesn't exist raise an error
+  IF NOT EXISTS (SELECT [TABLE_SCHEMA], [TABLE_NAME] 
+                   FROM [INFORMATION_SCHEMA].[TABLES]
+                  WHERE [TABLE_SCHEMA] = @SchemaName
+                    AND [TABLE_NAME] = @TableName
+                )
+  BEGIN 
+    SET @sqlStatement = ''
+    SET @sqlStatement = 'ERROR! TABLE [' + @SchemaName + '].[' + @TableName + '] does not exist.';
+    PRINT @sqlStatement
+    RETURN
+  END
+
+
+  /* Validate FromBigNumber parameter -----------------------------------------------------------*/
+  -- Get the min possible big number
+  DECLARE @minBigNumber BIGINT
+  DECLARE @minBigNumberReturn BIGINT
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' SELECT @minBigNumberReturn = MIN(BigNumber) '
+  SET @sqlStatement = @sqlStatement + '   FROM [' + @SchemaName + '].[' + @TableName + '];'
+
+  EXECUTE sp_executesql @sqlStatement, N'@minBigNumberReturn BIGINT OUTPUT', @minBigNumberReturn=@minBigNumber OUTPUT
+
+  IF @FromBigNumber < @minBigNumber SET @FromBigNumber = @minBigNumber
+
+  /* Validate ThruBigNumber parameter -----------------------------------------------------------*/
+
+  -- Get the max possible big number
+  DECLARE @maxBigNumber BIGINT
+  DECLARE @maxBigNumberReturn BIGINT
+
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' SELECT @maxBigNumberReturn = MAX(BigNumber) '
+  SET @sqlStatement = @sqlStatement + '   FROM [' + @SchemaName + '].[' + @TableName + '];'
+
+  EXECUTE sp_executesql @sqlStatement, N'@maxBigNumberReturn BIGINT OUTPUT', @maxBigNumberReturn=@maxBigNumber OUTPUT
+
+  IF @ThruBigNumber > @maxBigNumber SET @ThruBigNumber = @maxBigNumber
+
+  -- Check to see thru is greater than min
+  -- Ensure from is less than the max
+  IF @ThruBigNumber < @minBigNumber 
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The Thru Big Number (' 
+    SET @message = @message + CAST(@ThruBigNumber AS NVARCHAR) 
+    SET @message = @message + ') is less than the minimum value in the table of ' 
+    SET @message = @message + CAST(@minBigNumber AS NVARCHAR)
+    PRINT @message
+    RETURN
+  END
+
+  -- Ensure from is less than the max
+  IF @FromBigNumber > @maxBigNumber 
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The From Big Number (' 
+    SET @message = @message + CAST(@FromBigNumber AS NVARCHAR) 
+    SET @message = @message + ') exceeds the maximum value in the table of ' 
+    SET @message = @message + CAST(@maxBigNumber AS NVARCHAR)
+    PRINT @message
+    RETURN
+  END
+  
+
+  -- Finally validate From < Thru
+  IF @FromBigNumber > @ThruBigNumber
+  BEGIN
+    SET @message = ''
+    SET @message = @message + 'The From Big Number (' 
+    SET @message = @message + CAST(@FromBigNumber AS NVARCHAR) 
+    SET @message = @message + ') cannot be greater than the Thru Big Number (' 
+    SET @message = @message + CAST(@ThruBigNumber AS NVARCHAR) + ')'
+    PRINT @message
+    RETURN
+  END
+
+  /* Update the table ---------------------------------------------------------------------------*/
+  SET @sqlStatement = ''
+  SET @sqlStatement = @sqlStatement + ' UPDATE [' + @SchemaName + '].[' + @TableName + '] '
+  SET @sqlStatement = @sqlStatement + '    SET SourceCIUD = ''Update'' '
+  SET @sqlStatement = @sqlStatement + '      , FormattedComma = FORMAT(BigNumber + 1, ''#,##0'')  '
+
+  IF @IncludeType2Change = 1
+  BEGIN
+    SET @sqlStatement = @sqlStatement + '      , FormattedZero = FORMAT(BigNumber + 2, ''0000000000000'') '
+  END
+
+  SET @sqlStatement = @sqlStatement + '      , LastUpdateDate = GETDATE() '
+  SET @sqlStatement = @sqlStatement + '  WHERE BigNumber BETWEEN ' + CAST(@FromBigNumber AS NVARCHAR) 
+  SET @sqlStatement = @sqlStatement + '    AND ' + CAST(@ThruBigNumber AS NVARCHAR)
+  
+  EXECUTE sp_executesql @sqlStatement
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bigint]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DML].[UpdateSourceTable].[@SchemaName]" />
+				</Entry>
+				<Entry>
+					<References Name="[DML].[UpdateSourceTable].[@TableName]" />
+				</Entry>
+				<Entry />
+				<Entry />
+				<Entry>
+					<References Name="[DML].[UpdateSourceTable].[@FromBigNumber]" />
+				</Entry>
+				<Entry />
+				<Entry>
+					<References Name="[DML].[UpdateSourceTable].[@ThruBigNumber]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[DML].[UpdateSourceTable].[@IncludeType2Change]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[UpdateSourceTable].[@SchemaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[UpdateSourceTable].[@TableName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[UpdateSourceTable].[@FromBigNumber]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[UpdateSourceTable].[@ThruBigNumber]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[9223372036854775807]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[DML].[UpdateSourceTable].[@IncludeType2Change]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[DML]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="8" />
+				<Property Name="Length" Value="4181" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;CREATE PROCEDURE [DML].[UpdateSourceTable]&#xD;&#xA;(   @SchemaName NVARCHAR(255)&#xD;&#xA;  ,&#x9;@TableName NVARCHAR(255)&#xD;&#xA;  , @FromBigNumber BIGINT = 0&#xD;&#xA;  , @ThruBigNumber BIGINT = 9223372036854775807&#xD;&#xA;  , @IncludeType2Change BIT = 0&#xD;&#xA;) AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlSchema" Name="[ETL]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[Source]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[Staging]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[Target]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+	</Model>
+</DataSchemaModel>

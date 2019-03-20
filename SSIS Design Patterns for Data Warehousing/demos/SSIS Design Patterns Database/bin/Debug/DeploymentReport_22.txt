@@ -1,0 +1,35 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [Admin] (Schema)
+       [CUD] (Schema)
+       [DDL] (Schema)
+       [DML] (Schema)
+       [ETL] (Schema)
+       [Source] (Schema)
+       [Staging] (Schema)
+       [Target] (Schema)
+       [Admin].[READ_ME] (Procedure)
+       [DDL].[DropProcIfExists] (Procedure)
+       [DDL].[DropTableIfExists] (Procedure)
+       [DDL].[CreateCUDProcsType1] (Procedure)
+       [DDL].[CreateCUDProcsType2] (Procedure)
+       [DDL].[CreateCUDProcs] (Procedure)
+       [DDL].[DropAllObjects] (Procedure)
+       [DDL].[CreateTargetTable] (Procedure)
+       [DDL].[CreateSourceTable] (Procedure)
+       [DDL].[CreateETLTable] (Procedure)
+       [DML].[InsertIntoSourceTable] (Procedure)
+       [DML].[UpdateSourceTable] (Procedure)
+       [DDL].[CreateAllObjects] (Procedure)
+
+** Supporting actions

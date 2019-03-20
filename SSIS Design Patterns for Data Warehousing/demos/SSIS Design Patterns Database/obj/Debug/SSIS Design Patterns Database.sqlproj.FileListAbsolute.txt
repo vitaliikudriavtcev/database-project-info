@@ -1,0 +1,15 @@
+C:\Presentations\SQL Server 2012\SSIS Design Patterns\SSIS Design Patterns\SSIS Design Patterns Database\bin\Debug\SSIS Design Patterns Database.dacpac
+C:\Presentations\SQL Server 2012\SSIS Design Patterns\SSIS Design Patterns\SSIS Design Patterns Database\bin\Debug\SSIS_Design_Patterns_Database.dll
+C:\Presentations\SQL Server 2012\SSIS Design Patterns\SSIS Design Patterns\SSIS Design Patterns Database\bin\Debug\SSIS_Design_Patterns_Database.pdb
+C:\Presentations\SQL Server 2012\SSIS Design Patterns\SSIS Design Patterns\SSIS Design Patterns Database\obj\Debug\SSIS_Design_Patterns_Database.dll
+C:\Presentations\SQL Server 2012\SSIS Design Patterns\SSIS Design Patterns\SSIS Design Patterns Database\obj\Debug\SSIS_Design_Patterns_Database.pdb
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\bin\Debug\SSIS Design Patterns Database.dacpac
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\bin\Debug\SSIS_Design_Patterns_Database.dll
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\bin\Debug\SSIS_Design_Patterns_Database.pdb
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\SSIS Design Patterns Database.sqlprojAssemblyReference.cache
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\Model.xml
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\refactor.xml
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\postdeploy.sql
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\predeploy.sql
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\SSIS_Design_Patterns_Database.dll
+C:\Users\Vitalii_Kudriavtcev\Desktop\demos\SSIS Design Patterns Database\obj\Debug\SSIS_Design_Patterns_Database.pdb

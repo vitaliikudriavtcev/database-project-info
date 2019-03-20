@@ -1,0 +1,648 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2014 9:57:51 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{1A217756-D771-4928-BCFD-3C6ABB2122AE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="07_1_CDC_Initial_Load"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{4D8327CC-34B5-458D-8155-F7A1C07A1710}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{86C4B917-0AFC-4738-B22C-11F05916F0FF}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CDC_State">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CDC - Mark Inital Load End"
+      DTS:CreationName="Attunity.CdcControlTask"
+      DTS:Description="CDC Control Task"
+      DTS:DTSID="{8560976C-320D-4B1A-9E15-71117443642C}"
+      DTS:ExecutableType="Attunity.CdcControlTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CDC - Mark Inital Load End"
+      DTS:TaskContact="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <CDCControlTask
+          Connection="SSISDesignPatternsForCDC"
+          TaskOperation="MarkInitialLoadEnd"
+          OperationParameter=""
+          StateConnection="SSISDesignPatternsForCDC"
+          StateVariable="User::CDC_State"
+          AutomaticStatePersistence="True"
+          StateName="CDC_State"
+          StateTable="[dbo].[cdc_states]"
+          CommandTimeout="30"
+          ChangeDetectionRetryInterval="10"
+          ChangeDetectionTimeout="60" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\CDC - Setup Initial CDC"
+      DTS:CreationName="Attunity.CdcControlTask"
+      DTS:Description="CDC Control Task"
+      DTS:DTSID="{A21F4452-4601-4227-8444-9C8257703103}"
+      DTS:ExecutableType="Attunity.CdcControlTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CDC - Setup Initial CDC"
+      DTS:TaskContact="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <CDCControlTask
+          Connection="SSISDesignPatternsForCDC"
+          TaskOperation="MarkInitialLoadStart"
+          OperationParameter=""
+          StateConnection="SSISDesignPatternsForCDC"
+          StateVariable="User::CDC_State"
+          AutomaticStatePersistence="True"
+          StateName="CDC_State"
+          StateTable="[dbo].[cdc_states]"
+          CommandTimeout="30"
+          ChangeDetectionRetryInterval="10"
+          ChangeDetectionTimeout="60" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Initial Data Load"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C2BB7FE2-8B1E-42BA-9694-52D8B2924AEF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Initial Data Load"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="ADO - Source 07_CDC"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [BigNumber]
+      ,[FormattedComma]
+      ,[FormattedZero]
+      ,[SourceCIUD]
+      ,'Created' AS [TargetCIUD]
+      ,0 AS [IsRowDeleted]
+      ,[LastUpdateDate]
+  FROM [Source].[07_CDC]</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Connections[IDbConnection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[BigNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[BigNumber]"
+                      name="BigNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[FormattedComma]"
+                      length="4000"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedComma]"
+                      name="FormattedComma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[FormattedZero]"
+                      length="4000"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedZero]"
+                      name="FormattedZero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[SourceCIUD]"
+                      length="20"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[SourceCIUD]"
+                      name="SourceCIUD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[TargetCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[TargetCIUD]"
+                      length="7"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[TargetCIUD]"
+                      name="TargetCIUD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[IsRowDeleted]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[IsRowDeleted]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[IsRowDeleted]"
+                      name="IsRowDeleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="7"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[IsRowDeleted]"
+                      dataType="i4"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[BigNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[BigNumber]"
+                      name="BigNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[FormattedComma]"
+                      name="FormattedComma" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[FormattedZero]"
+                      name="FormattedZero" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[SourceCIUD]"
+                      name="SourceCIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[TargetCIUD]"
+                      dataType="wstr"
+                      length="7"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[TargetCIUD]"
+                      name="TargetCIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[IsRowDeleted]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[IsRowDeleted]"
+                      name="IsRowDeleted" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="ADO - Target 07_CDC"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"Target"."07_CDC"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Connections[IDbConnection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[SourceCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[TargetCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="TargetCIUD"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[TargetCIUD]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[TargetCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].Columns[IsRowDeleted]"
+                      cachedDataType="i4"
+                      cachedName="IsRowDeleted"
+                      externalMetadataColumnId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[IsRowDeleted]"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output].Columns[IsRowDeleted]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[07_CDCSK]"
+                      dataType="i8"
+                      name="07_CDCSK" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Initial Data Load.Paths[ADO NET Source Output]"
+              endId="Package\DFT - Initial Data Load\ADO - Target 07_CDC.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\DFT - Initial Data Load\ADO - Source 07_CDC.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{09B28168-0909-452F-AE3F-922AEBAFDD36}"
+      DTS:From="Package\CDC - Setup Initial CDC"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Initial Data Load" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A41978F9-85E2-4C3B-A5DB-7EDF6EC3B2F7}"
+      DTS:From="Package\DFT - Initial Data Load"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\CDC - Mark Inital Load End" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="207,42"
+          Id="Package\CDC - Mark Inital Load End"
+          TopLeft="185,219" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\CDC - Setup Initial CDC"
+          TopLeft="185,20" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\DFT - Initial Data Load"
+          TopLeft="185,123" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="288.5,62">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="288.5,165">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Note - For CDC to work correctly, SQL Server Agent must be running"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="392,40"
+          Id="914ef0cf-1845-4d5e-8404-a03e1bcd304d"
+          TopLeft="409,18" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Initial Data Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="184,42"
+          Id="Package\DFT - Initial Data Load\ADO - Source 07_CDC"
+          TopLeft="198,197" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\DFT - Initial Data Load\ADO - Target 07_CDC"
+          TopLeft="198,351" />
+        <EdgeLayout
+          Id="Package\DFT - Initial Data Load.Paths[ADO NET Source Output]"
+          TopLeft="289.5,239">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,112"
+              Start="0,0"
+              End="0,104.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,104.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Initial Data Load\ADO - Source 07_CDC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Initial Data Load\ADO - Target 07_CDC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

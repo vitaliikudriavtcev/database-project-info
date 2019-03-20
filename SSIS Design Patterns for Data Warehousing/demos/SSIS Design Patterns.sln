@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "SSIS Design Patterns", "SSIS Design Patterns\SSIS Design Patterns.dtproj", "{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SSIS Design Patterns Database", "SSIS Design Patterns Database\SSIS Design Patterns Database.sqlproj", "{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Debug|Any CPU.ActiveCfg = Development
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Debug|Any CPU.Build.0 = Development
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Development|Any CPU.ActiveCfg = Development
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Development|Any CPU.Build.0 = Development
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Release|Any CPU.ActiveCfg = Development
+		{0CAEB93E-AD29-4F58-B39E-7A8EA676D5C8}.Release|Any CPU.Build.0 = Development
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Development|Any CPU.Deploy.0 = Debug|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDB72C7-9EB3-4FEB-B87E-F6AF99120B63}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

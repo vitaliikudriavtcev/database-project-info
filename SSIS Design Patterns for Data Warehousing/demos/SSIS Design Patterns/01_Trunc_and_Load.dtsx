@@ -1,0 +1,673 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2014 9:51:43 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{B6FFDD71-9A9E-4B8C-9BE9-A4A501F840B0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="01_Trunc_and_Load"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{FC5E2F6C-0B54-452D-9E2C-95C5CC8BF147}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5A3A05A5-0E69-438D-80FE-AA16248E959B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="sqlSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [BigNumber], [FormattedComma], [FormattedZero], [SourceCIUD], [LastUpdateDate], 0 AS [IsRowDeleted] FROM [Source].[01_Trunc_and_Load]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{50F66972-E6D1-4AE6-BC18-83580932A737}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="sqlTruncate">
+      <DTS:VariableValue
+        DTS:DataType="8">TRUNCATE TABLE [Target].[01_Trunc_and_Load]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load Target_01_Trunc_and_Load"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EDDEB189-9763-41B0-8C05-00DED833D4C4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load Target_01_Trunc_and_Load"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER - Set TargetCIUD"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      name="TargetCIUD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Created"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Created"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Target_01_Trunc_and_Load"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Target].[01_Trunc_and_Load]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[IsRowDeleted]"
+                      cachedDataType="i4"
+                      cachedName="IsRowDeleted"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[IsRowDeleted]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[IsRowDeleted]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[SourceCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].Columns[TargetCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="TargetCIUD"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Output].Columns[TargetCIUD]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[01_Trunc_and_LoadSK]"
+                      dataType="i8"
+                      name="01_Trunc_and_LoadSK" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Source_01_Trunc_and_Load"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::sqlSource</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[BigNumber]"
+                      name="BigNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      length="4000"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedComma]"
+                      name="FormattedComma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      length="4000"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[FormattedZero]"
+                      name="FormattedZero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[IsRowDeleted]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[IsRowDeleted]"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[IsRowDeleted]"
+                      name="IsRowDeleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[SourceCIUD]"
+                      length="20"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].Columns[SourceCIUD]"
+                      name="SourceCIUD"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[IsRowDeleted]"
+                      dataType="i4"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[BigNumber]"
+                      name="BigNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[FormattedComma]"
+                      name="FormattedComma" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[FormattedZero]"
+                      name="FormattedZero" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[SourceCIUD]"
+                      name="SourceCIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[IsRowDeleted]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[IsRowDeleted]"
+                      name="IsRowDeleted" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load Target_01_Trunc_and_Load.Paths[Derived Column Output]"
+              endId="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Load Target_01_Trunc_and_Load.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate Target_01_Trunc_and_Load"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EE382310-5105-436B-9A08-5D419791379A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate Target_01_Trunc_and_Load"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::sqlTruncate" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{24322A99-4104-4889-91DD-323C5A81F2A9}"
+      DTS:From="Package\SQL - Truncate Target_01_Trunc_and_Load"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load Target_01_Trunc_and_Load" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - Load Target_01_Trunc_and_Load"
+          TopLeft="15,107.5" />
+        <NodeLayout
+          Size="286,42"
+          Id="Package\SQL - Truncate Target_01_Trunc_and_Load"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="148.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load Target_01_Trunc_and_Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="242,42"
+          Id="Package\DFT - Load Target_01_Trunc_and_Load\DST - Target_01_Trunc_and_Load"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\DFT - Load Target_01_Trunc_and_Load\DER - Set TargetCIUD"
+          TopLeft="35,107.5" />
+        <NodeLayout
+          Size="242,42"
+          Id="Package\DFT - Load Target_01_Trunc_and_Load\SRC - Source_01_Trunc_and_Load"
+          TopLeft="5.50000000000001,5.5" />
+        <EdgeLayout
+          Id="Package\DFT - Load Target_01_Trunc_and_Load.Paths[Derived Column Output]"
+          TopLeft="126.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Target_01_Trunc_and_Load.Paths[OLE DB Source Output]"
+          TopLeft="126.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

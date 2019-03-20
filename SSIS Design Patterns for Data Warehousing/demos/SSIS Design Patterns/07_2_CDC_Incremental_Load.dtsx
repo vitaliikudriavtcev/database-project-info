@@ -1,0 +1,1393 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/14/2014 6:43:04 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{698B0D04-F086-487B-B669-2D4DAA2D06A5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="07_2_CDC_Incremental_Load"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{818CE349-C13B-4251-8849-5539958F625F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F645C0D0-224C-47C2-A95E-3AF72E702DF5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CDC_State">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CDC - Get Processing Range"
+      DTS:CreationName="Attunity.CdcControlTask"
+      DTS:Description="CDC Control Task"
+      DTS:DTSID="{EA6819E9-7186-42F3-9F70-74F8479C8EF7}"
+      DTS:ExecutableType="Attunity.CdcControlTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CDC - Get Processing Range"
+      DTS:TaskContact="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <CDCControlTask
+          Connection="SSISDesignPatternsForCDC"
+          TaskOperation="GetProcessingRange"
+          OperationParameter=""
+          StateConnection="SSISDesignPatternsForCDC"
+          StateVariable="User::CDC_State"
+          AutomaticStatePersistence="True"
+          StateName="CDC_State"
+          StateTable="[dbo].[cdc_states]"
+          CommandTimeout="30"
+          ChangeDetectionRetryInterval="10"
+          ChangeDetectionTimeout="60" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\CDC - Mark Range Processed"
+      DTS:CreationName="Attunity.CdcControlTask"
+      DTS:Description="CDC Control Task"
+      DTS:DTSID="{EFC79BC4-F334-49E8-B213-B2C5779F107A}"
+      DTS:ExecutableType="Attunity.CdcControlTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CDC - Mark Range Processed"
+      DTS:TaskContact="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <CDCControlTask
+          Connection="SSISDesignPatternsForCDC"
+          TaskOperation="MarkProcessedRange"
+          OperationParameter=""
+          StateConnection="SSISDesignPatternsForCDC"
+          StateVariable="User::CDC_State"
+          AutomaticStatePersistence="True"
+          StateName="CDC_State"
+          StateTable="[dbo].[cdc_states]"
+          CommandTimeout="30"
+          ChangeDetectionRetryInterval="10"
+          ChangeDetectionTimeout="60" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Incremental Load"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6BE840E5-DBDA-4EB9-8B42-ED96DC52A8D5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Incremental Load"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Incremental Load\ADO - Deletes"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="ADO - Deletes"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"ETL"."07_CDC_Delete"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Incremental Load\ADO - Deletes.Connections[IDbConnection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Incremental Load\ADO - Deletes.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Deletes.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Deletes.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Deletes.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Incremental Load\ADO - Inserts"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="ADO - Inserts"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"ETL"."07_CDC_Insert"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Incremental Load\ADO - Inserts.Connections[IDbConnection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[SourceCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Incremental Load\ADO - Inserts.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Inserts.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Inserts.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Inserts.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Incremental Load\ADO - Updates"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="ADO - Updates"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"ETL"."07_CDC_Update"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Incremental Load\ADO - Updates.Connections[IDbConnection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[SourceCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[IsRowDeleted]"
+                      dataType="bool"
+                      name="IsRowDeleted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Incremental Load\ADO - Updates.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Updates.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\ADO - Updates.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\ADO - Updates.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Incremental Load\CDC Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+              description="Reads change data from a SQL Server change table making it available for processing by downstream data-flow components. Only changes within the current processing range determined by the CDC Control task are read"
+              name="CDC Source"
+              usesDispositions="true"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="An SSIS string package variable to store the CDC state of the current CDC state."
+                  expressionType="Notify"
+                  name="StateVariable"
+                  typeConverter="Attunity.SqlServer.CDCSrc.PackageVariablesTypeConverter">User::CDC_State</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the content of the metadata columns and the rows returned. Modes starting with ‘All’ return all changes and modes starting with ‘Net’ return net changes."
+                  expressionType="Notify"
+                  name="CDCProcessingMode"
+                  typeConverter="Attunity.SqlServer.CDCSrc.CdcProcessingMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The name of the CDC capture instance. By default the capture instance name is in the form of &quot;&lt;owner&gt;_&lt;table&gt;&quot;. The actual table that stores the changes is the CDC table named &quot;cdc&quot;.&quot;&lt;capture-instance&gt;_CT&quot;"
+                  expressionType="Notify"
+                  name="CaptureInstance">Source_07_CDC</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time out."
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="If true, a special output column called ‘__$reprocessing ’ is added. This output column is true for each data row during the initial processing range, or when the previous CDC run&#xA;was stopped without finishing. The default value is false (the __$reprocessing output column is not generated). This special output column allows the SSIS developer to handle consistency errors differently when working on the Initial Processing Range or the previous CDC run was stopped."
+                  expressionType="Notify"
+                  name="ReprocessingIndication">false</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Attunity.CdcSourceComponent</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Incremental Load\CDC Source.Connections[Connection]"
+                  connectionManagerID="{A4D6B554-FCDC-4363-8A96-8BBE24728AEB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatternsForCDC]"
+                  name="Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output]"
+                  name="Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$start_lsn]"
+                      dataType="bytes"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$start_lsn]"
+                      length="10"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$start_lsn]"
+                      name="__$start_lsn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$operation]"
+                      dataType="i4"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$operation]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$operation]"
+                      name="__$operation"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$update_mask]"
+                      dataType="bytes"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$update_mask]"
+                      length="128"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$update_mask]"
+                      name="__$update_mask"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]"
+                      dataType="i8"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[BigNumber]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]"
+                      name="BigNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedComma]"
+                      dataType="wstr"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[FormattedComma]"
+                      length="4000"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedComma]"
+                      name="FormattedComma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedZero]"
+                      dataType="wstr"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[FormattedZero]"
+                      length="4000"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedZero]"
+                      name="FormattedZero"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[SourceCIUD]"
+                      length="20"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[SourceCIUD]"
+                      name="SourceCIUD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$start_lsn]"
+                      dataType="bytes"
+                      length="10"
+                      name="__$start_lsn" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$operation]"
+                      dataType="i4"
+                      name="__$operation" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[__$update_mask]"
+                      dataType="bytes"
+                      length="128"
+                      name="__$update_mask" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[BigNumber]"
+                      dataType="i8"
+                      name="BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="SourceCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput]"
+                  isErrorOut="true"
+                  name="ErrorOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$start_lsn]"
+                      dataType="bytes"
+                      length="10"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$start_lsn]"
+                      name="__$start_lsn" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$operation]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$operation]"
+                      name="__$operation" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$update_mask]"
+                      dataType="bytes"
+                      length="128"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[__$update_mask]"
+                      name="__$update_mask" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[BigNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[BigNumber]"
+                      name="BigNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[FormattedComma]"
+                      name="FormattedComma" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[FormattedZero]"
+                      name="FormattedZero" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[SourceCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[SourceCIUD]"
+                      name="SourceCIUD" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[ErrorOutput].Columns[LastUpdateDate]"
+                      name="LastUpdateDate" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Incremental Load\CDC Splitter"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Attunity Ltd.; All Rights Reserved; http://www.attunity.com;"
+              description="Directs a stream of net change records into different outputs based on the type of the change (Insert, Delete and Update). This allows specific handling for different types of change records."
+              name="CDC Splitter"
+              usesDispositions="true"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Attunity.CdcSplitterComponent</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]"
+                  errorOrTruncationOperation="Operation of the changed row is not a valid one"
+                  errorRowDisposition="FailComponent"
+                  name="Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[__$start_lsn]"
+                      cachedDataType="bytes"
+                      cachedLength="10"
+                      cachedName="__$start_lsn"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$start_lsn]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[__$operation]"
+                      cachedDataType="i4"
+                      cachedName="__$operation"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$operation]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[__$update_mask]"
+                      cachedDataType="bytes"
+                      cachedLength="128"
+                      cachedName="__$update_mask"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[__$update_mask]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="BigNumber"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedComma"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FormattedZero"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[SourceCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SourceCIUD"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[SourceCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      lineageId="Package\DFT - Incremental Load\CDC Source.Outputs[Output].Columns[LastUpdateDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[InsertOutput]"
+                  exclusionGroup="1"
+                  name="InsertOutput"
+                  synchronousInputId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Output type - Insert."
+                      name="OutputType"
+                      typeConverter="Attunity.SqlServer.CDCSplit.OutputType">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[DeleteOutput]"
+                  exclusionGroup="1"
+                  name="DeleteOutput"
+                  synchronousInputId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Output type - Delete."
+                      name="OutputType"
+                      typeConverter="Attunity.SqlServer.CDCSplit.OutputType">2</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[UpdateOutput]"
+                  exclusionGroup="1"
+                  name="UpdateOutput"
+                  synchronousInputId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Output type - Update."
+                      name="OutputType"
+                      typeConverter="Attunity.SqlServer.CDCSplit.OutputType">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[ErrorOutput]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ErrorOutput"
+                  synchronousInputId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Output type - Error."
+                      name="OutputType"
+                      typeConverter="Attunity.SqlServer.CDCSplit.OutputType">3</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[ErrorOutput].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\CDC Splitter.Outputs[ErrorOutput].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Incremental Load\CDC Splitter.Outputs[ErrorOutput].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Incremental Load\CDC Splitter.Outputs[ErrorOutput].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Incremental Load.Paths[DeleteOutput]"
+              endId="Package\DFT - Incremental Load\ADO - Deletes.Inputs[ADO NET Destination Input]"
+              name="DeleteOutput"
+              startId="Package\DFT - Incremental Load\CDC Splitter.Outputs[DeleteOutput]" />
+            <path
+              refId="Package\DFT - Incremental Load.Paths[InsertOutput]"
+              endId="Package\DFT - Incremental Load\ADO - Inserts.Inputs[ADO NET Destination Input]"
+              name="InsertOutput"
+              startId="Package\DFT - Incremental Load\CDC Splitter.Outputs[InsertOutput]" />
+            <path
+              refId="Package\DFT - Incremental Load.Paths[Output]"
+              endId="Package\DFT - Incremental Load\CDC Splitter.Inputs[Input]"
+              name="Output"
+              startId="Package\DFT - Incremental Load\CDC Source.Outputs[Output]" />
+            <path
+              refId="Package\DFT - Incremental Load.Paths[UpdateOutput]"
+              endId="Package\DFT - Incremental Load\ADO - Updates.Inputs[ADO NET Destination Input]"
+              name="UpdateOutput"
+              startId="Package\DFT - Incremental Load\CDC Splitter.Outputs[UpdateOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{EFC909F0-1847-49DA-B2C0-BAC907D7F70B}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container"
+      DTS:TransactionOption="2">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\SQL - Deletes"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BB68B512-7977-4A3E-9B70-FE85A363D11D}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Deletes"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+              SQLTask:SqlStatementSource="UPDATE [Target].[07_CDC]&#xA;SET&#xA;  [TargetCIUD]      = 'Delete'&#xA;, [IsRowDeleted]   = 1&#xA;, [LastUpdateDate] = GetDate()&#xA;FROM [Target].[07_CDC] t&#xA;INNER JOIN&#xA;[ETL].[07_CDC_Delete] d&#xA;ON t.[BigNumber] = d.[BigNumber]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\SQL - Inserts"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{41E3CC7C-4EB4-410B-85F3-6B80895F3D32}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Inserts"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+              SQLTask:SqlStatementSource="INSERT INTO [Target].[07_CDC]&#xA;( [BigNumber]&#xA;, [FormattedComma]&#xA;, [FormattedZero]&#xA;, [SourceCIUD]&#xA;, [TargetCIUD]&#xA;, [IsRowDeleted]&#xA;, [LastUpdateDate]&#xA;)&#xA;SELECT&#xA;  [BigNumber]&#xA;, [FormattedComma]&#xA;, [FormattedZero]&#xA;, [SourceCIUD]&#xA;, 'Insert' AS [TargetCIUD]&#xA;, 0 AS [IsRowDeleted]&#xA;, GETDATE() AS [LastUpdateDate]&#xA;FROM [ETL].[07_CDC_Insert]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\SQL - Updates"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{A54ABE97-8F83-4436-B949-B220734382A7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Updates"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+              SQLTask:SqlStatementSource="UPDATE [Target].[07_CDC]&#xA;SET&#xA;  [FormattedComma] = u.[FormattedComma]&#xA;, [FormattedZero]  = u.[FormattedZero]&#xA;, [TargetCIUD]      = 'Update'&#xA;, [LastUpdateDate] = GETDATE()&#xA;FROM [Target].[07_CDC] t&#xA;INNER JOIN&#xA;[ETL].[07_CDC_Update] u&#xA;ON t.[BigNumber] = u.[BigNumber]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{7E2EDF05-8936-4BBC-A392-4135E25A6A8B}"
+          DTS:From="Package\Sequence Container\SQL - Inserts"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\SQL - Updates" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{ED7E6252-E105-4899-A23C-E664B8BD8763}"
+          DTS:From="Package\Sequence Container\SQL - Updates"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Sequence Container\SQL - Deletes" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate Staging Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FC3AEC74-7637-4D29-AF46-5A87F187A5F9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate Staging Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [ETL].[07_CDC_Delete];&#xA;GO&#xA;TRUNCATE TABLE [ETL].[07_CDC_Insert];&#xA;GO&#xA;TRUNCATE TABLE [ETL].[06_Hashbytes_SameDb_Update];&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{40634FE9-CE3C-4BD8-9B8B-903F677E4B85}"
+      DTS:From="Package\SQL - Truncate Staging Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\CDC - Get Processing Range" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{329D896F-B644-4B0A-B027-C29162845386}"
+      DTS:From="Package\CDC - Get Processing Range"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DFT - Incremental Load" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{678FA1FE-BF0E-434F-ABA5-21CCD1CE6B6C}"
+      DTS:From="Package\DFT - Incremental Load"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{56C92BED-4B47-4580-A8E1-7F1752AE4DB9}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\CDC - Mark Range Processed" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="212,42"
+          Id="Package\CDC - Get Processing Range"
+          TopLeft="196,174" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\CDC - Mark Range Processed"
+          TopLeft="196,693" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\DFT - Incremental Load"
+          TopLeft="196,264" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Sequence Container\SQL - Deletes"
+          TopLeft="35,175" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Sequence Container\SQL - Inserts"
+          TopLeft="34,12" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Sequence Container\SQL - Updates"
+          TopLeft="36,87" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="107,54">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="108,129">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="226,248"
+          Size="226,291"
+          Id="Package\Sequence Container"
+          TopLeft="196,355" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\SQL - Truncate Staging Tables"
+          TopLeft="196,68" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="305.5,110">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="305.5,216">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="309,306">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="309,646">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Note - for CDC to work SQL Server Agent must be running"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="338,60"
+          Id="a862ba96-5bab-4b70-a9e3-e8d70ab4c118"
+          TopLeft="442,73" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Incremental Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149,42"
+          Id="Package\DFT - Incremental Load\CDC Splitter"
+          TopLeft="304.333333333333,180" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\DFT - Incremental Load\CDC Source"
+          TopLeft="304.333333333333,71" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\DFT - Incremental Load\ADO - Updates"
+          TopLeft="304.333333333333,317" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\DFT - Incremental Load\ADO - Deletes"
+          TopLeft="558,317" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\DFT - Incremental Load\ADO - Inserts"
+          TopLeft="81,317" />
+        <EdgeLayout
+          Id="Package\DFT - Incremental Load.Paths[UpdateOutput]"
+          TopLeft="378.833333333333,222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,95"
+              Start="0,0"
+              End="0,87.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,87.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.63033203125,37.9453125,63.2606640625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Incremental Load.Paths[Output]"
+          TopLeft="378.833333333333,113">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Incremental Load.Paths[InsertOutput]"
+          TopLeft="343.583333333333,222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-191.083333333333,95"
+              Start="0,0"
+              End="-191.083333333333,87.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.7802197802198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.7802197802198"
+                    Point2="0,32.7802197802198"
+                    Point3="-4,32.7802197802198" />
+                  <mssgle:LineSegment
+                    End="-187.083333333333,32.7802197802198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-187.083333333333,32.7802197802198"
+                    Point2="-191.083333333333,32.7802197802198"
+                    Point3="-191.083333333333,36.7802197802198" />
+                  <mssgle:LineSegment
+                    End="-191.083333333333,87.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-124.519654947917,37.7802197802198,57.9559765625,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Incremental Load.Paths[DeleteOutput]"
+          TopLeft="414.083333333333,222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="216.916666666667,95"
+              Start="0,0"
+              End="216.916666666667,87.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.7802197802198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.7802197802198"
+                    Point2="0,32.7802197802198"
+                    Point3="4,32.7802197802198" />
+                  <mssgle:LineSegment
+                    End="212.916666666667,32.7802197802198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="212.916666666667,32.7802197802198"
+                    Point2="216.916666666667,32.7802197802198"
+                    Point3="216.916666666667,36.7802197802198" />
+                  <mssgle:LineSegment
+                    End="216.916666666667,87.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="78.5119466145835,37.7802197802198,59.8927734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Incremental Load\ADO - Updates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Incremental Load\ADO - Inserts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Incremental Load\ADO - Deletes">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Incremental Load\CDC Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

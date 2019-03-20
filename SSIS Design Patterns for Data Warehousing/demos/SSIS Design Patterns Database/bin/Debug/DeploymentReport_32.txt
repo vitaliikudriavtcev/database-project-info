@@ -1,0 +1,194 @@
+﻿** Warnings
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateCUDProcsType2] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[ROUTINE_TYPE].
+     Procedure: [DDL].[CreateCUDProcsType2] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcsType2] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateCUDProcsType1] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[ROUTINE_TYPE].
+     Procedure: [DDL].[CreateCUDProcsType1] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcsType1] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DML].[UpdateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DML].[UpdateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[UpdateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[UpdateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[UpdateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[UpdateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[UpdateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[UpdateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[UpdateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects:
+       [dbo].[sp_executesql].[@minBigNumberReturn] or [DML].[sp_executesql].[@minBigNumberReturn].
+     Procedure: [DML].[UpdateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects:
+       [dbo].[sp_executesql].[@maxBigNumberReturn] or [DML].[sp_executesql].[@maxBigNumberReturn].
+     Procedure: [DML].[InsertIntoSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DML].[InsertIntoSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[InsertIntoSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[InsertIntoSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[InsertIntoSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[InsertIntoSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[InsertIntoSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[InsertIntoSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects:
+       [dbo].[sp_executesql].[@startBigNumberReturn] or [DML].[sp_executesql].[@startBigNumberReturn].
+     Procedure: [DDL].[CreateTargetTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DDL].[CreateTargetTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[CreateTargetTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[CreateTargetTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[CreateTargetTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[CreateTargetTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateTargetTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DDL].[CreateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[CreateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[CreateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[CreateSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[CreateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateSourceTable] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[DropProcIfExists] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[ROUTINE_TYPE].
+     Procedure: [DDL].[DropProcIfExists] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[DropTableIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DDL].[DropTableIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[DropTableIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DDL].[DropTableIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[DropTableIfExists] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DDL].[DropTableIfExists] contains an unresolved reference to an object. Either the object does not exist or
+       the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DML].[DeleteFromSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[DeleteFromSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[DeleteFromSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME].
+     Procedure: [DML].[DeleteFromSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[DeleteFromSourceTable] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA].
+     Procedure: [DML].[DeleteFromSourceTable] has an unresolved reference to object [INFORMATION_SCHEMA].[TABLES].
+     Procedure: [DDL].[CreateETLTable] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateETLTable] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcs] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcs] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].[ROUTINE_TYPE].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateETLTable] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateETLTable] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateETLTable] contains an unresolved reference to an object. Either the object does not exist or the
+       reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DDL].[sp_executesql].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_NAME].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object
+       [INFORMATION_SCHEMA].[ROUTINES].[SPECIFIC_SCHEMA].
+     Procedure: [DDL].[CreateCUDProcs] has an unresolved reference to object [INFORMATION_SCHEMA].[ROUTINES].
+     Procedure: [DML].[DeleteFromSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[DeleteFromSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects: [dbo].[sp_executesql] or
+       [DML].[sp_executesql].
+     Procedure: [DML].[DeleteFromSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects:
+       [dbo].[sp_executesql].[@minBigNumberReturn] or [DML].[sp_executesql].[@minBigNumberReturn].
+     Procedure: [DML].[DeleteFromSourceTable] contains an unresolved reference to an object. Either the object does not exist
+       or the reference is ambiguous because it could refer to any of the following objects:
+       [dbo].[sp_executesql].[@maxBigNumberReturn] or [DML].[sp_executesql].[@maxBigNumberReturn].
+     The object reference [DDL].[DropTableIfExists].[@schemaName] differs only by case from the object definition
+       [DDL].[DropTableIfExists].[@SchemaName].
+
+** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [DML].[DeleteFromSourceTable] (Procedure)
+
+** Supporting actions

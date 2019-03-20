@@ -1,0 +1,2040 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/22/2014 9:06:09 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRAGMATICWORKS"
+  DTS:CreatorName="PRAGMATICWORKS\RCain"
+  DTS:DTSID="{D7C30836-EDB7-4627-995C-69DFC0E6BFEF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="10_Fact"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{A8B241C4-B9B0-401E-A500-1BCFC851385A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1A8450F4-34DF-47CE-96E5-C769E927012B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="sqlSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [BigNumber] AS [BigNumberBK], [BigNumber] AS [FakeDim1Key], [BigNumber] AS [FakeDim2Key], [BigNumber] AS [FakeDim3Key] FROM [Source].[10_Fact] ORDER BY [BigNumber]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Process Rows"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D9F70EF7-7CD4-4616-A772-8EE047818047}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Process Rows"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Process Rows\DER - Check for nulls"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER - Check for nulls"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input].Columns[FakeDim1_BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim1_BigNumber"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]}) ? -1 : #{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(FakeDim1_BigNumber) ? -1 : FakeDim1_BigNumber</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input].Columns[FakeDim2_FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim2_FormattedComma"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]}) ? "-1" : #{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(FakeDim2_FormattedComma) ? "-1" : FakeDim2_FormattedComma</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input].Columns[FakeDim3_FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim3_FormattedZero"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]}) ? "-1" : #{Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(FakeDim3_FormattedZero) ? "-1" : FakeDim3_FormattedZero</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\DER - Set Insert Flags"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER - Set Insert Flags"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\DER - Set Insert Flags.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Set Insert Flags.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="6"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      name="TargetCIUD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Insert"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Insert"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Set Insert Flags.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\DER - Set Update Flags"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER - Set Update Flags"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\DER - Set Update Flags.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Set Update Flags.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="6"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[TargetCIUD]"
+                      name="TargetCIUD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Update"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Update"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]"
+                      name="LastUpdateDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\DER - Set Update Flags.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Insert directly into Target 10_Fact"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Target].[10_Fact]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[FakeDim1_BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim1_BigNumber"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim1_BigNumber]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[FakeDim2_FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim2_FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim2_FormattedComma]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[FakeDim3_FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim3_FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim3_FormattedZero]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[TargetCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="TargetCIUD"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[TargetCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].Columns[BigNumberBK]"
+                      cachedDataType="i8"
+                      cachedName="BigNumberBK"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[10_FactBK]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[10_FactBK]"
+                      dataType="i8"
+                      name="10_FactBK" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim1_BigNumber]"
+                      dataType="i8"
+                      name="FakeDim1_BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim2_FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FakeDim2_FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim3_FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FakeDim3_FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Insert into ETL 10_Fact_Update"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[ETL].[10_Fact_Update]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[FakeDim1_BigNumber]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim1_BigNumber"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim1_BigNumber]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[FakeDim2_FormattedComma]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim2_FormattedComma"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim2_FormattedComma]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[FakeDim3_FormattedZero]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="FakeDim3_FormattedZero"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim3_FormattedZero]"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[TargetCIUD]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="TargetCIUD"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[TargetCIUD]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[LastUpdateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastUpdateDate"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      lineageId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output].Columns[LastUpdateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].Columns[BigNumberBK]"
+                      cachedDataType="i8"
+                      cachedName="BigNumberBK"
+                      externalMetadataColumnId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[10_Fact_UpdateBK]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[10_Fact_UpdateBK]"
+                      dataType="i8"
+                      name="10_Fact_UpdateBK" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim1_BigNumber]"
+                      dataType="i8"
+                      name="FakeDim1_BigNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim2_FormattedComma]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FakeDim2_FormattedComma" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[FakeDim3_FormattedZero]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FakeDim3_FormattedZero" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[TargetCIUD]"
+                      dataType="wstr"
+                      length="20"
+                      name="TargetCIUD" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="LastUpdateDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - 10_Fact_FakeDim1"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [BigNumber] AS [FakeDim1_BigNumber] FROM [Target].[10_Fact_FakeDim1]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [BigNumber] AS [FakeDim1_BigNumber] FROM [Target].[10_Fact_FakeDim1]) [refTable]
+where [refTable].[FakeDim1_BigNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="FakeDim1_BigNumber" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim1Key]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input].Columns[FakeDim1Key]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim1Key"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim1Key]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">FakeDim1_BigNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output].Columns[FakeDim1_BigNumber]"
+                      name="FakeDim1_BigNumber"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FakeDim1_BigNumber</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - 10_Fact_FakeDim2"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [BigNumber]
+      ,[FormattedComma] AS [FakeDim2_FormattedComma]
+  FROM [Target].[10_Fact_FakeDim2]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [BigNumber]
+      ,[FormattedComma] AS [FakeDim2_FormattedComma]
+  FROM [Target].[10_Fact_FakeDim2]) [refTable]
+where [refTable].[BigNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="BigNumber" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FakeDim2_FormattedComma" dataType="DT_WSTR" length="4000" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim2Key]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input].Columns[FakeDim2Key]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim2Key"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim2Key]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BigNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="4000"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output].Columns[FakeDim2_FormattedComma]"
+                      name="FakeDim2_FormattedComma"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FakeDim2_FormattedComma</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - 10_Fact_FakeDim3"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [BigNumber]
+      ,[FormattedZero] AS [FakeDim3_FormattedZero]
+  FROM [Target].[10_Fact_FakeDim3]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [BigNumber]
+      ,[FormattedZero] AS [FakeDim3_FormattedZero]
+  FROM [Target].[10_Fact_FakeDim3]) [refTable]
+where [refTable].[BigNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="BigNumber" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FakeDim3_FormattedZero" dataType="DT_WSTR" length="4000" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim3Key]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input].Columns[FakeDim3Key]"
+                      cachedDataType="i8"
+                      cachedName="FakeDim3Key"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim3Key]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BigNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="4000"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output].Columns[FakeDim3_FormattedZero]"
+                      name="FakeDim3_FormattedZero"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FakeDim3_FormattedZero</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\LKP - Is record in fact table already"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Is record in fact table already"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [10_FactBK] FROM [Target].[10_Fact] ORDER BY [10_FactBK]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [10_FactBK] FROM [Target].[10_Fact] ORDER BY [10_FactBK]) [refTable]
+where [refTable].[10_FactBK] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="10_FactBK" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input].Columns[BigNumberBK]"
+                      cachedDataType="i8"
+                      cachedName="BigNumberBK"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">10_FactBK</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Process Rows\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::sqlSource</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Process Rows\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{0F048699-33EC-4E33-AD5F-04CDD401278D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSISDesignPatterns]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BigNumberBK]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[BigNumberBK]"
+                      name="BigNumberBK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim1Key]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim1Key]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim1Key]"
+                      name="FakeDim1Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim2Key]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim2Key]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim2Key]"
+                      name="FakeDim2Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim3Key]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim3Key]"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].Columns[FakeDim3Key]"
+                      name="FakeDim3Key"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BigNumberBK]"
+                      dataType="i8"
+                      name="BigNumberBK" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim1Key]"
+                      dataType="i8"
+                      name="FakeDim1Key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim2Key]"
+                      dataType="i8"
+                      name="FakeDim2Key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FakeDim3Key]"
+                      dataType="i8"
+                      name="FakeDim3Key" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BigNumberBK]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BigNumberBK]"
+                      name="BigNumberBK" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim1Key]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim1Key]"
+                      name="FakeDim1Key" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim2Key]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim2Key]"
+                      name="FakeDim2Key" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim3Key]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FakeDim3Key]"
+                      name="FakeDim3Key" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Process Rows.Paths[Derived Column Output]"
+              endId="Package\DFT - Process Rows\LKP - Is record in fact table already.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Process Rows\DER - Check for nulls.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Derived Column Output1]"
+              endId="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Process Rows\DER - Set Insert Flags.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Derived Column Output2]"
+              endId="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Process Rows\DER - Set Update Flags.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Lookup Match Output]"
+              endId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Lookup Match Output1]"
+              endId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Lookup Match Output2]"
+              endId="Package\DFT - Process Rows\DER - Check for nulls.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Lookup Match Output3]"
+              endId="Package\DFT - Process Rows\DER - Set Update Flags.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[Lookup No Match Output]"
+              endId="Package\DFT - Process Rows\DER - Set Insert Flags.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - Process Rows\LKP - Is record in fact table already.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - Process Rows.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Process Rows\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{47207646-1DDE-4F16-A3A5-B2994D44C85F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE ETL.[10_Fact_Update];&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Update"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9B1F76BE-D56D-4E1B-950D-80CC418E5E41}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Update"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F048699-33EC-4E33-AD5F-04CDD401278D}"
+          SQLTask:SqlStatementSource="UPDATE [Target].[10_Fact]&#xA;SET&#xA;  [FakeDim1_BigNumber] = u.[FakeDim1_BigNumber]&#xA;, [FakeDim2_FormattedComma]  = u.[FakeDim2_FormattedComma]&#xA;, [FakeDim3_FormattedZero] = u.[FakeDim3_FormattedZero]&#xA;, [TargetCIUD]           = u.[TargetCIUD]&#xA;, [LastUpdateDate] = u.[LastUpdateDate]&#xA;FROM [Target].[10_Fact] t&#xA;INNER JOIN&#xA;[ETL].[10_Fact_Update] u&#xA;ON t.[10_FactBK] = u.[10_Fact_UpdateBK]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4CE2E064-3450-4424-8066-8F1825E4B694}"
+      DTS:From="Package\SQL - Truncate Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Process Rows" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{52A713FA-705F-49EA-8A92-5E22C7499381}"
+      DTS:From="Package\DFT - Process Rows"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Update" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="189,42"
+          Id="Package\DFT - Process Rows"
+          TopLeft="186,152" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\SQL - Truncate Staging"
+          TopLeft="186,40" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\SQL - Update"
+          TopLeft="186,264" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="280.5,82">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70"
+              Start="0,0"
+              End="0,62.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,62.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="280.5,194">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70"
+              Start="0,0"
+              End="0,62.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,62.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Process Rows">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1"
+          TopLeft="161,125.714285714286" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\DER - Check for nulls"
+          TopLeft="161,406.857142857143" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\DER - Set Update Flags"
+          TopLeft="558,500.571428571429" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\OLE DB Source"
+          TopLeft="161,32" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact"
+          TopLeft="161,688" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3"
+          TopLeft="161,313.142857142857" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2"
+          TopLeft="161,219.428571428571" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\LKP - Is record in fact table already"
+          TopLeft="161,500.571428571429" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update"
+          TopLeft="558,594.285714285714" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\DFT - Process Rows\DER - Set Insert Flags"
+          TopLeft="161,594.285714285714" />
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[OLE DB Source Output]"
+          TopLeft="296,74">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Lookup No Match Output]"
+          TopLeft="296,542.571428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,16.3024553571428,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Lookup Match Output3]"
+          TopLeft="431,521.571428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="127,0"
+              Start="0,0"
+              End="119.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="119.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="11.55861328125,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Lookup Match Output2]"
+          TopLeft="296,355.142857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.3024553571429,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Lookup Match Output1]"
+          TopLeft="296,261.428571428571">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.3024553571429,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Lookup Match Output]"
+          TopLeft="296,167.714285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.3024553571429,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Derived Column Output2]"
+          TopLeft="693,542.571428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Derived Column Output1]"
+          TopLeft="296,636.285714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142857"
+              Start="0,0"
+              End="0,44.2142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Process Rows.Paths[Derived Column Output]"
+          TopLeft="296,448.857142857143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.7142857142858"
+              Start="0,0"
+              End="0,44.2142857142858">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.2142857142858" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim1">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\DST - Insert directly into Target 10_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim3">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\LKP - 10_Fact_FakeDim2">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\LKP - Is record in fact table already">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Process Rows\DST - Insert into ETL 10_Fact_Update">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
