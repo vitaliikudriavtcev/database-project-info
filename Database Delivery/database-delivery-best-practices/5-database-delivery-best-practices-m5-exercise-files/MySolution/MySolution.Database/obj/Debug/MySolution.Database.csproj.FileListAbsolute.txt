@@ -1,0 +1,13 @@
+C:\Sources\MySolution\MySolution.Database\bin\Debug\MySolution.Database.pdb
+C:\Sources\MySolution\MySolution.Database\obj\Debug\MySolution.Database.csprojResolveAssemblyReference.cache
+C:\Sources\MySolution\MySolution.Database\obj\Debug\MySolution.Database.pdb
+C:\Sources\MySolution\MySolution.Database\bin\Debug\MySolution.Database.exe.config
+C:\Sources\MySolution\MySolution.Database\bin\Debug\MySolution.Database.exe
+C:\Sources\MySolution\MySolution.Database\obj\Debug\MySolution.Database.exe
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\01_Base.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\02_RenameUser_begin.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\04_SplitNameColumn_begin.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\05_SplitNameColumn_end.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\03_RenameUser_end.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\06_FirstNameNonNullable_begin.sql
+C:\Sources\MySolution\MySolution.Database\bin\Debug\Migrations\07_FirstNameNonNullable_end.sql
