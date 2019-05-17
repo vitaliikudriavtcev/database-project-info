@@ -1,0 +1,20 @@
+{
+"name":"vk_pro",
+"dataColors":["#094183", "#59B17F", "#3FA7C2", "#E77052", "#EE8889", "#A0D172", "#7283BE", "#ECAE65", "#5D7EBD", "#98D6C3", "#FFDCA2", "#FFA478"],
+"background":"#F5F8FC",
+"foreground":"#094183",
+"tableAccent":"#214F80",
+"visualStyles": {
+	"*": {
+		"*": {
+	 
+			"border": [{
+				"show": true,
+				"color": { "solid": { "color": "#1B354B" } }
+			}]
+		}
+	}
+	
+}
+        
+}
