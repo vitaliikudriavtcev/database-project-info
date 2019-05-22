@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EventHubDemo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EventHubConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Endpoint=sb://realtimedata2powerbi.servicebus.windows.net/;SharedAccessKeyName=Sender;SharedAccessKey=Km+nH/b/Q9BY/H14O+VJ0f2U4vkYM73xsaX/8BQx0ck=;EntityPath=factoryfloortemp</Value>
+    </Setting>
+    <Setting Name="EventDelayMs" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

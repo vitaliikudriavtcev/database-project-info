@@ -1,0 +1,113 @@
+******************************************
+Query #1: Simple Select
+******************************************
+SELECT 
+    temperature,currentMetric,currentDirection,machineName,temperatureReadTimestamp
+FROM
+    FactoryEventHub TIMESTAMP BY temperatureReadTimestamp
+
+
+******************************************
+Query #2: Aggregation over time window
+******************************************
+SELECT max(temperatureReadTimestamp) as WindowEnd,
+    avg(temperature) as averageTemperature,
+    stdevp(temperature) as stdeviationTemperature,
+    max(temperature) as maxTemperature,
+    min(temperature) as minTemperature,
+    machineName
+FROM
+    FactoryEventHub TIMESTAMP BY temperatureReadTimestamp
+    GROUP BY TUMBLINGWINDOW(s, 1), machineName
+
+
+******************************************
+Query #3: Using CTEs
+******************************************
+WITH LastInWindow AS
+(
+SELECT   
+    TopOne() OVER (ORDER BY temperaturereadtimestamp DESC) as topEvent  
+FROM FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+GROUP BY TumblingWindow(second, 1), machineName
+)
+SELECT topEvent.machineName,
+topEvent.currentDirection,
+topEvent.temperaturereadtimestamp
+FROM LastInWindow
+
+
+******************************************
+Query #4: CTE and Join
+******************************************
+WITH LastInWindow AS
+(
+SELECT   
+    TopOne() OVER (ORDER BY temperaturereadtimestamp DESC) as topEvent  
+FROM FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+GROUP BY TumblingWindow(second, 1), machineName
+),
+Aggregates AS
+(
+SELECT max(temperaturereadtimestamp) as WindowEnd,
+    avg(temperature) as averageTemperature,
+    stdevp(temperature) as stdeviationTemperature,
+    max(temperature) as maxTemperature,
+    min(temperature) as minTemperature,
+    machineName
+FROM
+    FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+    GROUP BY TUMBLINGWINDOW(second, 1), machineName)
+
+SELECT Aggregates.machineName,
+Aggregates.WindowEnd,
+cast(Aggregates.WindowEnd as nvarchar(max)) WindowEndText,
+Aggregates.averageTemperature,
+Aggregates.stdeviationTemperature,
+Aggregates.maxTemperature,
+Aggregates.minTemperature,
+LastInWindow.topEvent.currentDirection as lastDirection
+FROM 
+Aggregates
+INNER JOIN LastInWindow  
+ON DATEDIFF(second, Aggregates, LastInWindow) BETWEEN 0 AND 1
+AND Aggregates.machineName = LastInWindow.topEvent.machineName
+AND Aggregates.WindowEnd = LastInWindow.topEvent.temperaturereadtimestamp
+
+******************************************
+Query #5: CTE and Join and Reference Data
+******************************************
+WITH LastInWindow AS
+(
+SELECT   
+    TopOne() OVER (ORDER BY temperaturereadtimestamp DESC) as topEvent  
+FROM FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+GROUP BY TumblingWindow(second, 1), machineName
+),
+Aggregates AS
+(
+SELECT max(temperaturereadtimestamp) as WindowEnd,
+    avg(temperature) as averageTemperature,
+    stdevp(temperature) as stdeviationTemperature,
+    max(temperature) as maxTemperature,
+    min(temperature) as minTemperature,
+    machineName
+FROM
+    FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+    GROUP BY TUMBLINGWINDOW(second, 1), machineName)
+
+SELECT Aggregates.machineName,
+Aggregates.WindowEnd,
+Aggregates.averageTemperature,
+Aggregates.stdeviationTemperature,
+Aggregates.maxTemperature,
+Aggregates.minTemperature,
+LastInWindow.topEvent.currentDirection as lastDirection,
+MachineEnergyPanel.energyPanel
+FROM 
+Aggregates
+INNER JOIN LastInWindow  
+ON DATEDIFF(second, Aggregates, LastInWindow) BETWEEN 0 AND 1
+AND Aggregates.machineName = LastInWindow.topEvent.machineName
+AND Aggregates.WindowEnd = LastInWindow.topEvent.temperaturereadtimestamp
+INNER JOIN MachineEnergyPanel ON Aggregates.machineName = MachineEnergyPanel.machineName

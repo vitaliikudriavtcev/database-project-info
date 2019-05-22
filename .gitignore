@@ -3,3 +3,9 @@ Database Delivery/database-delivery-best-practices/3-database-delivery-best-prac
 Database Delivery/database-delivery-best-practices/3-database-delivery-best-practices-m3-exercise-files/MySolution/MySolution.Database/obj/Debug/
 Database Delivery/database-delivery-best-practices/5-database-delivery-best-practices-m5-exercise-files/MySolution/MySolution.Database/obj/Debug/MySolution.Database.csprojResolveAssemblyReference.cache
 Database Delivery/database-delivery-best-practices/5-database-delivery-best-practices-m5-exercise-files/MySolution/MySolution.Database/obj/Debug/
+*.suo
+*.pdb
+Azure/Delivering Real-time Data with Azure and Power BI Streaming/MachineTemperature/FactoryFloor/bin/
+Azure/Delivering Real-time Data with Azure and Power BI Streaming/MachineTemperature/FactoryFloor/obj/
+Azure/Delivering Real-time Data with Azure and Power BI Streaming/MachineTemperature/EventHubDemo/obj/
+Azure/Delivering Real-time Data with Azure and Power BI Streaming/MachineTemperature/EventHubDemo/bin/

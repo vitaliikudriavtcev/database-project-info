@@ -1,0 +1,8 @@
+﻿[
+{machineName:"m1", energyPanel:"North"},
+{machineName:"m2", energyPanel:"North"},
+{machineName:"m3", energyPanel:"North"},
+{machineName:"m4", energyPanel:"South"},
+{machineName:"m5", energyPanel:"South"},
+{machineName:"m6", energyPanel:"South"}
+]

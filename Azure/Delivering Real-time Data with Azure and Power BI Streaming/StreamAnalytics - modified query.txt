@@ -1,0 +1,38 @@
+******************************************
+Query #6: CTE and Join and Reference Data with text timestamp
+******************************************
+WITH LastInWindow AS
+(
+SELECT   
+    TopOne() OVER (ORDER BY temperaturereadtimestamp DESC) as topEvent  
+FROM FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+GROUP BY TumblingWindow(second, 1), machineName
+),
+Aggregates AS
+(
+SELECT max(temperaturereadtimestamp) as WindowEnd,
+    avg(temperature) as averageTemperature,
+    stdevp(temperature) as stdeviationTemperature,
+    max(temperature) as maxTemperature,
+    min(temperature) as minTemperature,
+    machineName
+FROM
+    FactoryEventHub TIMESTAMP BY temperaturereadtimestamp
+    GROUP BY TUMBLINGWINDOW(second, 1), machineName)
+
+SELECT Aggregates.machineName,
+cast(Aggregates.WindowEnd as nvarchar(max)) WindowEndText,
+Aggregates.WindowEnd,
+Aggregates.averageTemperature,
+Aggregates.stdeviationTemperature,
+Aggregates.maxTemperature,
+Aggregates.minTemperature,
+LastInWindow.topEvent.currentDirection as lastDirection,
+MachineEnergyPanel.energyPanel
+FROM 
+Aggregates
+INNER JOIN LastInWindow  
+ON DATEDIFF(second, Aggregates, LastInWindow) BETWEEN 0 AND 1
+AND Aggregates.machineName = LastInWindow.topEvent.machineName
+AND Aggregates.WindowEnd = LastInWindow.topEvent.temperaturereadtimestamp
+INNER JOIN MachineEnergyPanel ON Aggregates.machineName = MachineEnergyPanel.machineName
