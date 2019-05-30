@@ -1,0 +1,7 @@
+{ 
+    "name": "pastel", 
+    "dataColors": ["#114B5F", "#456990", "#028090", "#02C39A", "#F45B69", "#F4ACB7", "#9D8189", "#FFCAD4", "#FFE5D9", "#D8E2DC"],
+    "background":"#E6E6E6",
+    "foreground": "#074650",
+    "tableAccent": "#028090"
+}
